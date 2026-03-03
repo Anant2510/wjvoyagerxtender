@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WestJet – Fly Beyond Ordinary</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --wj-teal: #003C45;
+            --wj-teal-mid: #00535E;
+            --wj-teal-light: #007A8A;
+            --wj-green: #00B2A9;
+            --wj-green-light: #00D4C8;
+            --wj-white: #FFFFFF;
+            --wj-snow: #F6F9FA;
+            --wj-gray-100: #EDF1F3;
+            --wj-gray-200: #D5DCE0;
+            --wj-gray-400: #8A9BA5;
+            --wj-gray-600: #4A5C68;
+            --wj-gold: #E8A317;
+            --wj-gold-light: #FFCC44;
+            --wj-red: #E04848;
+            --font-display: 'Playfair Display', Georgia, serif;
+            --font-body: 'DM Sans', system-ui, sans-serif;
+            --shadow-xs: 0 1px 2px rgba(0,60,69,0.05);
+            --shadow-sm: 0 2px 8px rgba(0,60,69,0.07);
+            --shadow-md: 0 4px 20px rgba(0,60,69,0.10);
+            --shadow-lg: 0 12px 40px rgba(0,60,69,0.13);
+            --shadow-xl: 0 20px 60px rgba(0,60,69,0.16);
+            --radius: 12px;
+            --radius-lg: 18px;
+            --radius-xl: 24px;
+            --ease: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--wj-snow);
+            color: var(--wj-teal);
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ═══════════════════════════════════════
+           PAGE TRANSITIONS
+           ═══════════════════════════════════════ */
+        .page { display: none; opacity: 0; }
+        .page.active { display: block; animation: pageReveal 0.6s var(--ease) forwards; }
+        @keyframes pageReveal {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ═══════════════════════════════════════
+           NAVBAR
+           ═══════════════════════════════════════ */
+        .nav {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(0,60,69,0.97);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .nav-inner {
+            max-width: 1240px; margin: 0 auto;
+            padding: 0 32px; height: 68px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .nav-brand { display: flex; align-items: center; gap: 12px; cursor: pointer; text-decoration: none; }
+        .nav-brand svg { width: 36px; height: 36px; }
+        .nav-wordmark {
+            font-family: var(--font-body); font-weight: 700; font-size: 21px;
+            color: var(--wj-white); letter-spacing: -0.3px;
+        }
+        .nav-wordmark em { font-style: normal; color: var(--wj-green); }
+        .nav-menu { display: flex; align-items: center; gap: 8px; list-style: none; }
+        .nav-menu a {
+            font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.65);
+            text-decoration: none; padding: 8px 18px; border-radius: 8px;
+            transition: all 0.25s var(--ease); cursor: pointer;
+        }
+        .nav-menu a:hover { color: #fff; background: rgba(255,255,255,0.08); }
+        .nav-cta {
+            background: var(--wj-green) !important; color: #fff !important;
+            font-weight: 600 !important; border-radius: 10px !important;
+            padding: 9px 24px !important; border: none; cursor: pointer;
+            font-family: var(--font-body); font-size: 14px;
+            transition: all 0.25s var(--ease);
+        }
+        .nav-cta:hover { background: var(--wj-green-light) !important; transform: translateY(-1px); }
+        .nav-user-pill {
+            display: flex; align-items: center; gap: 10px;
+            padding: 6px 16px 6px 6px; border-radius: 40px;
+            background: rgba(255,255,255,0.08); cursor: pointer;
+            transition: background 0.25s var(--ease);
+        }
+        .nav-user-pill:hover { background: rgba(255,255,255,0.14); }
+        .nav-avatar {
+            width: 32px; height: 32px; border-radius: 50%;
+            background: var(--wj-green); display: flex; align-items: center; justify-content: center;
+            font-size: 13px; font-weight: 700; color: var(--wj-teal);
+        }
+        .nav-user-name { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.9); }
+
+        /* ═══════════════════════════════════════
+           HOME — HERO
+           ═══════════════════════════════════════ */
+        .hero {
+            position: relative; overflow: hidden;
+            background: linear-gradient(165deg, var(--wj-teal) 0%, #005561 40%, var(--wj-teal-light) 100%);
+            padding: 72px 32px 96px;
+        }
+        .hero-bg-circle {
+            position: absolute; border-radius: 50%; pointer-events: none;
+        }
+        .hero-bg-circle.c1 {
+            width: 700px; height: 700px; top: -300px; right: -150px;
+            background: radial-gradient(circle, rgba(0,178,169,0.12) 0%, transparent 70%);
+        }
+        .hero-bg-circle.c2 {
+            width: 500px; height: 500px; bottom: -250px; left: -100px;
+            background: radial-gradient(circle, rgba(232,163,23,0.08) 0%, transparent 70%);
+        }
+        .hero-content { position: relative; z-index: 2; max-width: 1240px; margin: 0 auto; text-align: center; }
+        .hero h1 {
+            font-family: var(--font-display); font-size: 52px; font-weight: 800;
+            color: #fff; line-height: 1.15; margin-bottom: 14px; letter-spacing: -0.5px;
+        }
+        .hero h1 span { color: var(--wj-green-light); }
+        .hero-sub {
+            font-size: 17px; color: rgba(255,255,255,0.6); max-width: 480px;
+            margin: 0 auto 44px; line-height: 1.6;
+        }
+
+        /* Search Widget */
+        .search-widget {
+            max-width: 880px; margin: 0 auto;
+            background: #fff; border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl); padding: 28px 32px 24px;
+        }
+        .sw-tabs { display: flex; gap: 4px; margin-bottom: 22px; }
+        .sw-tab {
+            font-family: var(--font-body); font-size: 13px; font-weight: 600;
+            padding: 8px 20px; border: none; background: none;
+            color: var(--wj-gray-400); cursor: pointer;
+            border-bottom: 2.5px solid transparent; transition: all 0.2s var(--ease);
+        }
+        .sw-tab.active { color: var(--wj-teal); border-bottom-color: var(--wj-green); }
+        .sw-fields {
+            display: grid; grid-template-columns: 1fr 1fr 1fr 1fr auto;
+            gap: 12px; align-items: end;
+        }
+        .sw-field label {
+            display: block; font-size: 10px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1px;
+            color: var(--wj-gray-400); margin-bottom: 5px;
+        }
+        .sw-field input {
+            width: 100%; padding: 11px 14px;
+            border: 2px solid var(--wj-gray-100); border-radius: 10px;
+            font-family: var(--font-body); font-size: 14px; color: var(--wj-teal);
+            transition: border-color 0.2s var(--ease); background: #fff;
+        }
+        .sw-field input:focus { outline: none; border-color: var(--wj-green); }
+        .sw-field input::placeholder { color: var(--wj-gray-200); }
+        .btn-primary {
+            background: var(--wj-green); color: #fff;
+            font-family: var(--font-body); font-weight: 700; font-size: 14px;
+            border: none; border-radius: 12px; padding: 11px 32px;
+            cursor: pointer; transition: all 0.25s var(--ease); white-space: nowrap;
+        }
+        .btn-primary:hover { background: var(--wj-green-light); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+
+        /* Deals Grid */
+        .section { max-width: 1240px; margin: 0 auto; padding: 64px 32px; }
+        .section-header h2 {
+            font-family: var(--font-display); font-size: 32px; font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .section-header p { color: var(--wj-gray-400); font-size: 15px; margin-bottom: 36px; }
+        .deals-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .deal {
+            border-radius: var(--radius-lg); overflow: hidden;
+            background: #fff; box-shadow: var(--shadow-sm);
+            transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+            cursor: pointer;
+        }
+        .deal:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+        .deal-photo {
+            height: 190px; background-size: cover; background-position: center;
+            position: relative;
+        }
+        .deal-photo::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.35) 0%, transparent 60%);
+        }
+        .deal-badge {
+            position: absolute; top: 14px; left: 14px; z-index: 2;
+            background: var(--wj-gold); color: #fff;
+            font-size: 10px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.6px; padding: 4px 12px; border-radius: 20px;
+        }
+        .deal-info { padding: 18px 20px; }
+        .deal-route {
+            font-family: var(--font-body); font-size: 15px; font-weight: 700;
+            display: flex; align-items: center; gap: 8px; margin-bottom: 3px;
+        }
+        .deal-route .arr { color: var(--wj-green); }
+        .deal-dates { font-size: 13px; color: var(--wj-gray-400); margin-bottom: 12px; }
+        .deal-bottom { display: flex; align-items: baseline; gap: 5px; }
+        .deal-bottom .lbl { font-size: 12px; color: var(--wj-gray-400); }
+        .deal-bottom .price {
+            font-family: var(--font-display); font-size: 26px; font-weight: 700; color: var(--wj-green);
+        }
+        .deal-bottom .cur { font-size: 13px; color: var(--wj-gray-400); }
+
+        /* ═══════════════════════════════════════
+           SIGN-IN PAGE
+           ═══════════════════════════════════════ */
+        .signin-bg {
+            min-height: calc(100vh - 68px);
+            display: flex; align-items: center; justify-content: center;
+            padding: 48px 24px;
+            background: linear-gradient(170deg, var(--wj-snow) 0%, #DBE8EC 100%);
+            position: relative;
+        }
+        .signin-bg::before {
+            content: ''; position: absolute; top: 0; right: 0;
+            width: 45%; height: 100%;
+            background: linear-gradient(135deg, var(--wj-teal) 0%, var(--wj-teal-light) 100%);
+            clip-path: polygon(25% 0, 100% 0, 100% 100%, 0% 100%);
+            opacity: 0.06;
+        }
+        .signin-box {
+            background: #fff; border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl); padding: 48px 44px;
+            width: 100%; max-width: 430px; position: relative; z-index: 2;
+        }
+        .signin-box h2 {
+            font-family: var(--font-display); font-size: 28px; font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .signin-box .lead { color: var(--wj-gray-400); font-size: 14px; margin-bottom: 32px; }
+        .fg { margin-bottom: 20px; }
+        .fg label {
+            display: block; font-size: 13px; font-weight: 600;
+            color: var(--wj-teal); margin-bottom: 6px;
+        }
+        .fg input {
+            width: 100%; padding: 12px 16px;
+            border: 2px solid var(--wj-gray-100); border-radius: 10px;
+            font-family: var(--font-body); font-size: 14px; color: var(--wj-teal);
+            transition: border-color 0.2s var(--ease);
+        }
+        .fg input:focus { outline: none; border-color: var(--wj-green); }
+        .fg input.err { border-color: var(--wj-red); }
+        .fg .err-text { display: none; font-size: 12px; color: var(--wj-red); margin-top: 5px; }
+        .fg input.err ~ .err-text { display: block; }
+        .signin-opts {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 28px; font-size: 13px;
+        }
+        .signin-opts label {
+            display: flex; align-items: center; gap: 6px;
+            color: var(--wj-gray-600); cursor: pointer;
+        }
+        .signin-opts a { color: var(--wj-green); text-decoration: none; font-weight: 600; }
+        .btn-login {
+            width: 100%; padding: 14px; border: none; border-radius: 12px;
+            background: var(--wj-green); color: #fff;
+            font-family: var(--font-body); font-size: 15px; font-weight: 700;
+            cursor: pointer; transition: all 0.25s var(--ease);
+        }
+        .btn-login:hover { background: var(--wj-green-light); transform: translateY(-1px); }
+        .login-alert {
+            display: none; margin-top: 16px; padding: 12px 16px;
+            border-radius: 10px; font-size: 13px; font-weight: 500;
+            background: #FEF2F2; color: var(--wj-red); border: 1px solid #FECACA;
+        }
+        .login-alert.show { display: block; animation: shake 0.4s ease; }
+        @keyframes shake {
+            0%,100%{transform:translateX(0)} 20%{transform:translateX(-6px)} 40%{transform:translateX(6px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)}
+        }
+        .signin-sep {
+            display: flex; align-items: center; gap: 14px;
+            margin: 24px 0; color: var(--wj-gray-400); font-size: 12px;
+        }
+        .signin-sep::before,.signin-sep::after { content:''; flex:1; height:1px; background:var(--wj-gray-100); }
+        .btn-ghost {
+            width: 100%; padding: 13px; border: 2px solid var(--wj-gray-100);
+            border-radius: 12px; background: transparent; color: var(--wj-teal);
+            font-family: var(--font-body); font-size: 14px; font-weight: 600;
+            cursor: pointer; transition: all 0.25s var(--ease);
+        }
+        .btn-ghost:hover { border-color: var(--wj-teal); background: var(--wj-snow); }
+
+        /* ═══════════════════════════════════════
+           OFFERS PAGE
+           ═══════════════════════════════════════ */
+        .offers-hero {
+            background: linear-gradient(140deg, var(--wj-teal) 0%, #006070 50%, var(--wj-teal-light) 100%);
+            padding: 56px 32px 72px; text-align: center;
+            position: relative; overflow: hidden;
+        }
+        .offers-hero::before {
+            content: ''; position: absolute; width: 500px; height: 500px;
+            top: -200px; right: -100px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(0,212,200,0.1) 0%, transparent 70%);
+        }
+        .offers-hero h1 {
+            font-family: var(--font-display); font-size: 40px; font-weight: 800;
+            color: #fff; margin-bottom: 8px; position: relative; z-index: 2;
+        }
+        .offers-hero .oh-sub {
+            color: rgba(255,255,255,0.6); font-size: 16px; max-width: 540px;
+            margin: 0 auto; position: relative; z-index: 2; line-height: 1.6;
+        }
+        .offers-hero .oh-sub strong { color: var(--wj-green-light); font-weight: 600; }
+
+        /* Filters */
+        .offer-filters-bar {
+            max-width: 1240px; margin: -28px auto 0; padding: 0 32px;
+            position: relative; z-index: 10; display: flex; gap: 10px; flex-wrap: wrap;
+        }
+        .pill {
+            padding: 10px 24px; border-radius: 40px;
+            background: #fff; border: 2px solid var(--wj-gray-100);
+            font-family: var(--font-body); font-size: 13px; font-weight: 600;
+            color: var(--wj-gray-600); cursor: pointer;
+            box-shadow: var(--shadow-xs); transition: all 0.25s var(--ease);
+        }
+        .pill:hover, .pill.on { background: var(--wj-teal); color: #fff; border-color: var(--wj-teal); }
+
+        /* Offers Grid */
+        .offers-wrap { max-width: 1240px; margin: 36px auto; padding: 0 32px 80px; }
+        .offers-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px; }
+        .ocard {
+            background: #fff; border-radius: var(--radius-lg); overflow: hidden;
+            box-shadow: var(--shadow-sm); display: flex;
+            transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+            cursor: pointer;
+        }
+        .ocard:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+        .ocard-img {
+            width: 220px; min-height: 220px; flex-shrink: 0;
+            background-size: cover; background-position: center;
+            position: relative;
+        }
+        .ocard-img::after {
+            content:''; position:absolute; inset:0;
+            background: linear-gradient(to right, transparent 50%, rgba(255,255,255,0.04) 100%);
+        }
+        .ocard-tag {
+            position: absolute; top: 14px; left: 14px; z-index: 2;
+            padding: 4px 12px; border-radius: 20px;
+            font-size: 10px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.5px; color: #fff; background: var(--wj-gold);
+        }
+        .ocard-body {
+            flex: 1; padding: 24px; display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .ocard-title {
+            font-family: var(--font-display); font-size: 18px; font-weight: 700;
+            margin-bottom: 8px; line-height: 1.3;
+        }
+        .ocard-desc { font-size: 13px; color: var(--wj-gray-400); line-height: 1.6; margin-bottom: 18px; }
+        .ocard-foot { display: flex; align-items: center; justify-content: space-between; }
+        .ocard-price .sm { font-size: 11px; color: var(--wj-gray-400); }
+        .ocard-price .big {
+            font-family: var(--font-display); font-size: 28px; font-weight: 700; color: var(--wj-green);
+        }
+        .btn-deal {
+            padding: 10px 22px; border: none; border-radius: 10px;
+            background: var(--wj-teal); color: #fff;
+            font-family: var(--font-body); font-size: 13px; font-weight: 600;
+            cursor: pointer; transition: all 0.25s var(--ease);
+        }
+        .btn-deal:hover { background: var(--wj-teal-mid); }
+
+        /* Promo Strip */
+        .promo-strip {
+            margin-top: 36px; border-radius: var(--radius-lg);
+            background: linear-gradient(100deg, var(--wj-gold) 0%, #D4900E 100%);
+            padding: 36px 40px; display: flex; align-items: center;
+            justify-content: space-between; color: #fff;
+        }
+        .promo-strip h3 { font-family: var(--font-display); font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+        .promo-strip p { font-size: 14px; opacity: 0.9; }
+        .btn-promo {
+            background: #fff; color: var(--wj-gold); border: none; border-radius: 12px;
+            padding: 12px 32px; font-family: var(--font-body); font-size: 14px;
+            font-weight: 700; cursor: pointer; transition: all 0.25s var(--ease); white-space: nowrap;
+        }
+        .btn-promo:hover { transform: scale(1.04); box-shadow: var(--shadow-md); }
+
+        /* Footer */
+        .foot {
+            background: var(--wj-teal); padding: 28px 32px; text-align: center;
+            font-size: 12px; color: rgba(255,255,255,0.3);
+        }
+
+        /* ═══════════════════════════════════════
+           RESPONSIVE
+           ═══════════════════════════════════════ */
+        @media(max-width:900px){
+            .sw-fields{grid-template-columns:1fr 1fr;}
+            .deals-row{grid-template-columns:1fr;}
+            .offers-grid{grid-template-columns:1fr;}
+            .ocard{flex-direction:column;}
+            .ocard-img{width:100%;min-height:180px;}
+            .hero h1{font-size:36px;}
+            .promo-strip{flex-direction:column;gap:20px;text-align:center;}
+        }
+        @media(max-width:600px){
+            .sw-fields{grid-template-columns:1fr;}
+            .nav-inner{padding:0 16px;}
+            .section{padding:48px 16px;}
+            .offers-wrap{padding:0 16px 60px;}
+            .offer-filters-bar{padding:0 16px;}
+        }
+    </style>
+</head>
+<body>
+
+<!-- ════════════════ NAVBAR ════════════════ -->
+<nav class="nav">
+    <div class="nav-inner">
+        <a class="nav-brand" onclick="go('home')">
+            <svg viewBox="0 0 36 36" fill="none">
+                <path d="M6 30L18 4L30 30" stroke="#00B2A9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M10 22H26" stroke="#00B2A9" stroke-width="2.5" stroke-linecap="round"/>
+                <circle cx="18" cy="10" r="2.2" fill="#00B2A9"/>
+            </svg>
+            <span class="nav-wordmark">West<em>Jet</em></span>
+        </a>
+        <ul class="nav-menu" id="navMenu">
+            <li><a onclick="go('home')">Flights</a></li>
+            <li><a onclick="go('offers')">Offers</a></li>
+            <li><a>Destinations</a></li>
+            <li id="navAuth"></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- ════════════════ PAGE: HOME ════════════════ -->
+<div id="pg-home" class="page active">
+    <section class="hero">
+        <div class="hero-bg-circle c1"></div>
+        <div class="hero-bg-circle c2"></div>
+        <div class="hero-content">
+            <h1>Fly to your <span>next adventure</span></h1>
+            <p class="hero-sub">Discover low fares across Canada and beyond. Book your next getaway with WestJet.</p>
+            <div class="search-widget">
+                <div class="sw-tabs">
+                    <button class="sw-tab active" onclick="swTab(this)">Round Trip</button>
+                    <button class="sw-tab" onclick="swTab(this)">One Way</button>
+                    <button class="sw-tab" onclick="swTab(this)">Multi-City</button>
+                </div>
+                <div class="sw-fields">
+                    <div class="sw-field"><label>From</label><input value="Calgary (YYC)" id="fFrom"></div>
+                    <div class="sw-field"><label>To</label><input placeholder="Where to?" id="fTo"></div>
+                    <div class="sw-field"><label>Depart</label><input type="date" id="fDep"></div>
+                    <div class="sw-field"><label>Return</label><input type="date" id="fRet"></div>
+                    <button class="btn-primary" onclick="doSearch()">Search</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-header">
+            <h2>Trending Deals</h2>
+            <p>Hand-picked fares from our most popular routes</p>
+        </div>
+        <div class="deals-row">
+            <div class="deal" onclick="go('signin')">
+                <div class="deal-photo" style="background-image:url('https://images.unsplash.com/photo-1559511260-66a654ae982a?w=600&h=400&fit=crop')">
+                    <span class="deal-badge">Popular</span>
+                </div>
+                <div class="deal-info">
+                    <div class="deal-route">Calgary <span class="arr">&rarr;</span> Vancouver</div>
+                    <div class="deal-dates">Mar 15 – Mar 22</div>
+                    <div class="deal-bottom"><span class="lbl">from</span><span class="price">$129</span><span class="cur">CAD</span></div>
+                </div>
+            </div>
+            <div class="deal" onclick="go('signin')">
+                <div class="deal-photo" style="background-image:url('https://images.unsplash.com/photo-1510097467424-192d713fd8b2?w=600&h=400&fit=crop')">
+                    <span class="deal-badge">Hot Deal</span>
+                </div>
+                <div class="deal-info">
+                    <div class="deal-route">Toronto <span class="arr">&rarr;</span> Cancún</div>
+                    <div class="deal-dates">Apr 1 – Apr 8</div>
+                    <div class="deal-bottom"><span class="lbl">from</span><span class="price">$299</span><span class="cur">CAD</span></div>
+                </div>
+            </div>
+            <div class="deal" onclick="go('signin')">
+                <div class="deal-photo" style="background-image:url('https://images.unsplash.com/photo-1542259009477-d625272157b7?w=600&h=400&fit=crop')">
+                    <span class="deal-badge">Limited</span>
+                </div>
+                <div class="deal-info">
+                    <div class="deal-route">Vancouver <span class="arr">&rarr;</span> Maui</div>
+                    <div class="deal-dates">May 10 – May 17</div>
+                    <div class="deal-bottom"><span class="lbl">from</span><span class="price">$389</span><span class="cur">CAD</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="foot">&copy; 2026 WestJet. For demonstration purposes only.</footer>
+</div>
+
+<!-- ════════════════ PAGE: SIGN IN ════════════════ -->
+<div id="pg-signin" class="page">
+    <div class="signin-bg">
+        <div class="signin-box">
+            <h2>Welcome back</h2>
+            <p class="lead">Sign in to your WestJet Rewards account</p>
+            <div class="fg">
+                <label for="inEmail">Email address</label>
+                <input type="email" id="inEmail" placeholder="name@example.com">
+                <div class="err-text">Please enter a valid email address</div>
+            </div>
+            <div class="fg">
+                <label for="inPwd">Password</label>
+                <input type="password" id="inPwd" placeholder="Enter your password">
+                <div class="err-text">Password is required</div>
+            </div>
+            <div class="signin-opts">
+                <label><input type="checkbox" checked> Remember me</label>
+                <a href="#">Forgot password?</a>
+            </div>
+            <button class="btn-login" onclick="doLogin()">Sign In</button>
+            <div class="login-alert" id="loginAlert"></div>
+            <div class="signin-sep">or</div>
+            <button class="btn-ghost">Create a WestJet Rewards Account</button>
+        </div>
+    </div>
+</div>
+
+<!-- ════════════════ PAGE: OFFERS ════════════════ -->
+<div id="pg-offers" class="page">
+    <section class="offers-hero">
+        <h1 id="offersTitle">Exclusive Offers</h1>
+        <p class="oh-sub" id="offersSub"></p>
+    </section>
+    <div class="offer-filters-bar" id="filterBar"></div>
+    <section class="offers-wrap">
+        <div class="offers-grid" id="offersGrid"></div>
+        <div class="promo-strip" id="promoStrip"></div>
+    </section>
+    <footer class="foot">&copy; 2026 WestJet. For demonstration purposes only.</footer>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     JAVASCRIPT
+     ════════════════════════════════════════════════ -->
+<script>
+/* ═══════ STATE ═══════ */
+let user = null;      // null | 'qc' | 'to'
+let curPage = 'home';
+
+/* ═══════ USER PROFILES ═══════ */
+const profiles = {
+    qc: {
+        email: 'westjet1@example.com',
+        pwd: '1234',
+        name: 'Marie-Ève',
+        initials: 'ME',
+        city: 'Québec City',
+        region: 'Québec',
+        age: 25,
+        ethnicity: 'French-Canadian'
+    },
+    to: {
+        email: 'westjet2@example.com',
+        pwd: '4321',
+        name: 'Margaret',
+        initials: 'MW',
+        city: 'Toronto',
+        region: 'Ontario',
+        age: 58,
+        ethnicity: 'British-Canadian'
+    }
+};
+
+/* ═══════ PERSONALIZED OFFERS ═══════ */
+const baseOffers = [
+    {
+        id: 1,
+        route: 'Cancún, Mexico',
+        price: 279, cat: 'sun',
+        img: 'https://images.unsplash.com/photo-1510097467424-192d713fd8b2?w=600&h=450&fit=crop',
+        gen: {
+            tag: 'Flash Sale',
+            title: 'Cancún — Sun-Soaked Beach Getaway',
+            desc: 'Escape to the turquoise waters of Cancún. All-inclusive resorts, great food, and endless sunshine make this one of the most popular winter getaways from Canada.'
+        },
+        qc: {
+            tag: 'Flash Deal',
+            title: 'Cancún — Ditch the Cold, Hit the Beach',
+            desc: "Okay real talk — Québec winters are brutal. Cancún is the perfect reset: turquoise water, fresh tacos on the beach, and sunsets that hit different. Grab your crew and get out of the snow already."
+        },
+        to: {
+            tag: 'Flash Sale',
+            title: 'Cancún — Sunshine & Serenity Awaits',
+            desc: "Treat yourself to a well-deserved escape to Cancún's magnificent turquoise shores. Splendid all-inclusive resorts, wonderful dining, and glorious sunshine — simply perfect for a restful holiday."
+        }
+    },
+    {
+        id: 2,
+        route: 'London, UK',
+        price: 499, cat: 'city',
+        img: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=600&h=450&fit=crop',
+        gen: {
+            tag: 'Members Only',
+            title: 'London — Iconic Sights & Culture',
+            desc: 'Discover world-class theatre, historic landmarks, and vibrant neighbourhoods. Direct flights from Canada make London an easy and exciting city break any time of year.'
+        },
+        qc: {
+            tag: 'Members Only',
+            title: 'London — Non-Stop Culture & Nightlife',
+            desc: "London is unreal — free museums, insane street food markets, rooftop bars, and live music everywhere. It is the kind of city where every neighbourhood has its own vibe. Your socials are about to go off."
+        },
+        to: {
+            tag: 'Members Only',
+            title: 'London — Return to the Heart of It All',
+            desc: "Rediscover the charm of London — from the West End's marvellous theatre to afternoon tea at Fortnum's. A direct flight from Toronto makes this a thoroughly delightful journey home, or a splendid first visit."
+        }
+    },
+    {
+        id: 3,
+        route: 'Maui, Hawaii',
+        price: 359, cat: 'sun',
+        img: 'https://images.unsplash.com/photo-1542259009477-d625272157b7?w=600&h=450&fit=crop',
+        gen: {
+            tag: 'Limited Time',
+            title: 'Maui — Tropical Paradise Awaits',
+            desc: 'From the stunning Road to Hana to the golden beaches of Wailea, Maui offers a perfect blend of adventure and relaxation. Book now before these limited-time fares are gone.'
+        },
+        qc: {
+            tag: 'Limited Time',
+            title: 'Maui — Literally Paradise on Earth',
+            desc: "Picture this: you wake up to ocean waves, snorkel with sea turtles before lunch, and end the day with a poké bowl at sunset. Maui is that dream vacation you keep scrolling past — except now you can actually afford it."
+        },
+        to: {
+            tag: 'Limited Time',
+            title: 'Maui — Paradise Found in the Pacific',
+            desc: "Experience the enchanting beauty of Maui — from the spectacular Road to Hana to the pristine beaches of Wailea. A thoroughly wonderful destination for those who appreciate nature's finest offerings."
+        }
+    },
+    {
+        id: 4,
+        route: 'Banff, Alberta',
+        price: 149, cat: 'adventure',
+        img: 'https://images.unsplash.com/photo-1503614472-8c93d56e92ce?w=600&h=450&fit=crop',
+        gen: {
+            tag: 'New',
+            title: 'Banff — Explore the Canadian Rockies',
+            desc: "World-class skiing, breathtaking hikes, and natural hot springs surrounded by towering peaks. Banff is Canada's premier mountain destination — and these bundled rates are hard to beat."
+        },
+        qc: {
+            tag: 'New Drop',
+            title: 'Banff — The Rockies Are Next Level',
+            desc: "You think Laurentians skiing is good? Wait till you see the Rockies. Banff is like a screensaver but in real life — epic ski runs, hot springs after a long day, and mountain views that are honestly unfair. The price? Ridiculously good."
+        },
+        to: {
+            tag: 'New',
+            title: 'Banff — The Canadian Rockies at Their Finest',
+            desc: 'The magnificent Canadian Rockies offer a truly first-class mountain retreat. Excellent skiing, scenic gondola rides, and the renowned Banff Upper Hot Springs — an extraordinary experience for the discerning traveller.'
+        }
+    },
+    {
+        id: 5,
+        route: 'Paris, France',
+        price: 549, cat: 'city',
+        img: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&h=450&fit=crop',
+        gen: {
+            tag: 'Popular',
+            title: 'Paris — The City of Light',
+            desc: 'From the Eiffel Tower to charming sidewalk cafés, Paris is a destination that never goes out of style. Non-stop flights and premium cabin upgrades available on select routes.'
+        },
+        qc: {
+            tag: 'Fan Favourite',
+            title: 'Paris — You Already Speak the Language',
+            desc: "Being from Québec means Paris is basically your second home — no awkward phrasebook needed. Croissants, terrasses, the Seine at night... Direct flights from Montréal make it almost too easy. What are you waiting for?"
+        },
+        to: {
+            tag: 'Popular',
+            title: 'Paris — The City of Light Beckons',
+            desc: "There is simply nothing quite like Paris. From the Louvre to charming Montmartre, from exquisite patisseries to strolls along the Seine — a timeless destination that never disappoints the seasoned traveller."
+        }
+    },
+    {
+        id: 6,
+        route: 'Costa Rica',
+        price: 399, cat: 'adventure',
+        img: 'https://images.unsplash.com/photo-1518259102261-b40117eabbc0?w=600&h=450&fit=crop',
+        gen: {
+            tag: 'Adventure',
+            title: 'Costa Rica — Rainforests & Coastlines',
+            desc: 'Explore lush rainforests, active volcanoes, and pristine Pacific beaches. Costa Rica offers unforgettable adventure travel packages with something for every explorer.'
+        },
+        qc: {
+            tag: 'Adventure',
+            title: 'Costa Rica — Wild Nature, Zero Regrets',
+            desc: "Tropical rainforests, active volcanoes, zip-lining through the canopy — Costa Rica is for anyone who wants more than just a beach trip. Plus the wildlife is insane, you will literally see toucans in the wild. Pura vida, for real."
+        },
+        to: {
+            tag: 'Adventure',
+            title: "Costa Rica — Nature's Grand Spectacle",
+            desc: 'Discover the remarkable biodiversity of Costa Rica — lush rainforests, magnificent volcanoes, and pristine coastlines. An enriching journey for those with a passion for nature and a spirit of exploration.'
+        }
+    }
+];
+
+/* ═══════ NAV ═══════ */
+function updateNav() {
+    var el = document.getElementById('navAuth');
+    if (user) {
+        var p = profiles[user];
+        el.innerHTML = '<div class="nav-user-pill" onclick="go(\'offers\')"><span class="nav-avatar">' + p.initials + '</span><span class="nav-user-name">' + p.name + '</span></div>';
+    } else {
+        el.innerHTML = '<button class="nav-cta" onclick="go(\'signin\')">Sign In</button>';
+    }
+}
+
+/* ═══════ NAVIGATION ═══════ */
+function go(page) {
+    document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+    var el = document.getElementById('pg-' + page);
+    if (el) el.classList.add('active');
+    curPage = page;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    updateNav();
+
+    if (page === 'offers') renderOffers('all');
+}
+
+function swTab(el) {
+    el.parentElement.querySelectorAll('.sw-tab').forEach(function(t){ t.classList.remove('active'); });
+    el.classList.add('active');
+}
+
+function doSearch() {
+    go('signin');
+}
+
+/* ═══════ LOGIN ═══════ */
+function doLogin() {
+    var email = document.getElementById('inEmail').value.trim().toLowerCase();
+    var pwd = document.getElementById('inPwd').value.trim();
+    var alertEl = document.getElementById('loginAlert');
+
+    document.getElementById('inEmail').classList.remove('err');
+    document.getElementById('inPwd').classList.remove('err');
+    alertEl.classList.remove('show');
+
+    if (!email) { document.getElementById('inEmail').classList.add('err'); return; }
+    if (!pwd) { document.getElementById('inPwd').classList.add('err'); return; }
+
+    var matched = null;
+    if (email === profiles.qc.email && pwd === profiles.qc.pwd) matched = 'qc';
+    else if (email === profiles.to.email && pwd === profiles.to.pwd) matched = 'to';
+
+    if (!matched) {
+        alertEl.textContent = 'Invalid email or password. Please try again.';
+        alertEl.classList.add('show');
+        return;
+    }
+
+    user = matched;
+    setTimeout(function(){ go('offers'); }, 400);
+}
+
+/* ═══════ OFFERS RENDERING ═══════ */
+function renderOffers(filter) {
+    var key = user || 'gen';
+
+    // Hero text
+    if (key === 'qc') {
+        var p = profiles.qc;
+        document.getElementById('offersTitle').textContent = 'Hey ' + p.name + ', These Deals Are For You';
+        document.getElementById('offersSub').innerHTML = 'We picked the best getaways based on what people in <strong>Qu\u00e9bec</strong> are loving right now. Direct flights, great prices \u2014 let\u2019s make it happen.';
+    } else if (key === 'to') {
+        var p2 = profiles.to;
+        document.getElementById('offersTitle').textContent = 'Your Exclusive Offers, ' + p2.name;
+        document.getElementById('offersSub').innerHTML = 'Handpicked travel opportunities selected especially for you. <strong>Toronto to the World</strong> \u2014 where shall we go?';
+    } else {
+        document.getElementById('offersTitle').textContent = 'Explore Our Latest Offers';
+        document.getElementById('offersSub').innerHTML = 'Great fares to popular destinations across the globe. <strong>Sign in</strong> for personalized deals tailored just for you.';
+    }
+
+    // Filter pills — all English now
+    var fb = document.getElementById('filterBar');
+    fb.innerHTML = '<button class="pill on" onclick="doFilter(this,\'all\')">All Offers</button>' +
+        '<button class="pill" onclick="doFilter(this,\'sun\')">Sun & Beach</button>' +
+        '<button class="pill" onclick="doFilter(this,\'city\')">City Breaks</button>' +
+        '<button class="pill" onclick="doFilter(this,\'adventure\')">Adventure</button>';
+
+    // Promo strip
+    var ps = document.getElementById('promoStrip');
+    if (key === 'qc') {
+        ps.innerHTML = '<div><h3>Double Points This Week Only</h3><p>As a WestJet Rewards member, every booking you make this week earns you 2x the points. Do not sleep on this one.</p></div><button class="btn-promo">Learn More</button>';
+    } else if (key === 'to') {
+        ps.innerHTML = '<div><h3>Double Points This Week</h3><p>As a valued WestJet Rewards member, earn twice the points on all bookings made this week.</p></div><button class="btn-promo">Learn More</button>';
+    } else {
+        ps.innerHTML = '<div><h3>Join WestJet Rewards \u2014 It\u2019s Free</h3><p>Sign up today and start earning points on every flight. Members get access to exclusive deals, priority boarding, and more.</p></div><button class="btn-promo" onclick="go(\'signin\')">Sign In</button>';
+    }
+
+    populateGrid(filter, key);
+}
+
+function populateGrid(filter, key) {
+    var grid = document.getElementById('offersGrid');
+    var items = filter === 'all' ? baseOffers : baseOffers.filter(function(o){ return o.cat === filter; });
+
+    grid.innerHTML = items.map(function(o) {
+        var d = o[key];
+        return '<div class="ocard">' +
+            '<div class="ocard-img" style="background-image:url(\'' + o.img + '\')">' +
+            '<span class="ocard-tag">' + d.tag + '</span></div>' +
+            '<div class="ocard-body"><div>' +
+            '<div class="ocard-title">' + d.title + '</div>' +
+            '<div class="ocard-desc">' + d.desc + '</div></div>' +
+            '<div class="ocard-foot"><div class="ocard-price">' +
+            '<div class="sm">from</div>' +
+            '<div class="big">$' + o.price + '</div>' +
+            '<div class="sm">CAD / person</div></div>' +
+            '<button class="btn-deal">View Deal</button></div></div></div>';
+    }).join('');
+}
+
+function doFilter(el, cat) {
+    el.parentElement.querySelectorAll('.pill').forEach(function(p){ p.classList.remove('on'); });
+    el.classList.add('on');
+    populateGrid(cat, user || 'gen');
+}
+
+/* ═══════ INIT ═══════ */
+updateNav();
+</script>
+</body>
+</html>
