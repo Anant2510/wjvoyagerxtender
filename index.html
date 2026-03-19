@@ -3,569 +3,616 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WestJet – Fly Beyond Ordinary</title>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <title>WestJet – Flights and vacation packages</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --wj-teal: #003C45;
-            --wj-teal-mid: #00535E;
-            --wj-teal-light: #007A8A;
-            --wj-green: #00B2A9;
-            --wj-green-light: #00D4C8;
-            --wj-white: #FFFFFF;
-            --wj-snow: #F6F9FA;
-            --wj-gray-100: #EDF1F3;
-            --wj-gray-200: #D5DCE0;
-            --wj-gray-400: #8A9BA5;
-            --wj-gray-600: #4A5C68;
-            --wj-gold: #E8A317;
-            --wj-gold-light: #FFCC44;
-            --wj-red: #E04848;
-            --font-display: 'Playfair Display', Georgia, serif;
-            --font-body: 'DM Sans', system-ui, sans-serif;
-            --shadow-xs: 0 1px 2px rgba(0,60,69,0.05);
-            --shadow-sm: 0 2px 8px rgba(0,60,69,0.07);
-            --shadow-md: 0 4px 20px rgba(0,60,69,0.10);
-            --shadow-lg: 0 12px 40px rgba(0,60,69,0.13);
-            --shadow-xl: 0 20px 60px rgba(0,60,69,0.16);
-            --radius: 12px;
-            --radius-lg: 18px;
-            --radius-xl: 24px;
-            --ease: cubic-bezier(0.4, 0, 0.2, 1);
+            --wj-dark: #1B2A3B;
+            --wj-dark-2: #22334A;
+            --wj-navy: #1A3F70;
+            --wj-teal: #00AAA6;
+            --wj-teal-hover: #00C4BF;
+            --wj-teal-dark: #008F8C;
+            --wj-white: #fff;
+            --wj-snow: #F5F7F8;
+            --wj-g100: #ECF0F2;
+            --wj-g200: #D3DBDF;
+            --wj-g400: #8899A4;
+            --wj-g600: #4A5C68;
+            --wj-gold: #D4910E;
+            --wj-red: #D94040;
+            --font: 'DM Sans', system-ui, -apple-system, sans-serif;
+            --ease: cubic-bezier(.4,0,.2,1);
+            --r: 12px; --r-lg: 18px; --r-xl: 24px;
+            --sh-sm: 0 2px 8px rgba(27,42,59,.06);
+            --sh-md: 0 6px 24px rgba(27,42,59,.09);
+            --sh-lg: 0 12px 40px rgba(27,42,59,.13);
+        }
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        html{scroll-behavior:smooth}
+        body{font-family:var(--font);background:#fff;color:var(--wj-dark);-webkit-font-smoothing:antialiased}
+
+        /* ══════ PAGE TRANSITIONS ══════ */
+        .pg{display:none;opacity:0}
+        .pg.on{display:block;animation:pgIn .5s var(--ease) forwards}
+        @keyframes pgIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+        /* ══════════════════════════════════════════
+           HEADER
+           ══════════════════════════════════════════ */
+        header{position:sticky;top:0;z-index:200}
+
+        .hdr-dark{
+            position:relative;
+            height:78px;
+            overflow:visible;
+            background-color:#0E2B31;
+            background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%201200%2078%27%20preserveAspectRatio%3D%27none%27%3E%0A%3Crect%20width%3D%271200%27%20height%3D%2778%27%20fill%3D%27%25230e2b31%27/%3E%0A%3Cg%20fill%3D%27none%27%20stroke%3D%27rgba%28255%2C255%2C255%2C0.08%29%27%20stroke-width%3D%271.5%27%3E%0A%3Cpath%20d%3D%27M-40%2034%20C%2060%2010%2C%20150%2010%2C%20250%2034%20S%20450%2058%2C%20550%2034%20S%20750%2010%2C%20850%2034%20S%201050%2058%2C%201150%2034%20S%201250%2010%2C%201350%2034%27/%3E%0A%3Cpath%20d%3D%27M-60%2048%20C%2040%2024%2C%20130%2024%2C%20230%2048%20S%20430%2072%2C%20530%2048%20S%20730%2024%2C%20830%2048%20S%201030%2072%2C%201130%2048%20S%201230%2024%2C%201330%2048%27/%3E%0A%3Cpath%20d%3D%27M-20%2064%20C%2080%2040%2C%20170%2040%2C%20270%2064%20S%20470%2088%2C%20570%2064%20S%20770%2040%2C%20870%2064%20S%201070%2088%2C%201170%2064%20S%201270%2040%2C%201370%2064%27/%3E%0A%3C/g%3E%3C/svg%3E");
+            background-repeat:repeat-x;
+            background-size:620px 78px;
         }
 
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: var(--font-body);
-            background: var(--wj-snow);
-            color: var(--wj-teal);
-            min-height: 100vh;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
+        .hdr-teal{
+            position:absolute;
+            top:8px;
+            left:max(18px, calc((100vw - 1496px)/2 + 14px));
+            width:275px;
+            height:154px;
+            background:#08ACA8;
+            z-index:30;
+            display:flex;
+            align-items:center;
+            padding:0 26px;
+            text-decoration:none;
+            border-radius:14px;
+            clip-path:polygon(0 0, 100% 0, 73% 100%, 0 100%);
+            box-shadow:0 10px 24px rgba(7,33,38,.18);
+            cursor:pointer;
+        }
+        .hdr-teal .logo{
+            display:flex;
+            align-items:center;
+            gap:10px;
+            color:#fff;
+            pointer-events:none;
+        }
+        .hdr-teal .logo svg{width:36px;height:36px;flex-shrink:0}
+        .hdr-teal .logo-txt{
+            font-family:var(--font);
+            font-weight:800;
+            font-size:22px;
+            line-height:1;
+            color:#fff;
+            letter-spacing:.6px;
+            text-transform:uppercase;
+            white-space:nowrap;
         }
 
-        /* ═══════════════════════════════════════
-           PAGE TRANSITIONS
-           ═══════════════════════════════════════ */
-        .page { display: none; opacity: 0; }
-        .page.active { display: block; animation: pageReveal 0.6s var(--ease) forwards; }
-        @keyframes pageReveal {
-            from { opacity: 0; transform: translateY(16px); }
-            to { opacity: 1; transform: translateY(0); }
+        .hdr-dark-inner{
+            max-width:1496px;
+            margin:0 auto;
+            height:78px;
+            padding:0 28px 0 360px;
+            display:flex;
+            align-items:center;
+            justify-content:flex-end;
+            position:relative;
+            z-index:20;
         }
+        .hdr-auth{display:flex;align-items:center;gap:24px}
+        .hdr-auth .signin{
+            font-family:var(--font);
+            font-size:18px;
+            font-weight:700;
+            color:#fff;
+            background:none;
+            border:none;
+            cursor:pointer;
+            padding:0;
+            line-height:1;
+        }
+        .hdr-auth .signin:hover{opacity:.82}
+        .hdr-auth .create{
+            font-family:var(--font);
+            font-size:18px;
+            font-weight:700;
+            color:#fff;
+            background:#08ACA8;
+            border:none;
+            border-radius:8px;
+            padding:17px 28px;
+            cursor:pointer;
+            line-height:1;
+            box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);
+        }
+        .hdr-auth .create:hover{background:#12BBB7}
+        .hdr-auth .bell{
+            background:none;
+            border:none;
+            cursor:pointer;
+            padding:2px;
+            color:#fff;
+            position:relative;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+        .hdr-auth .bell .bdg{
+            position:absolute;
+            top:-3px;
+            right:-5px;
+            min-width:16px;
+            height:16px;
+            background:#08ACA8;
+            color:#fff;
+            font-size:9px;
+            font-weight:700;
+            border-radius:999px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:0 4px;
+            border:2px solid #0E2B31;
+        }
+        .h-user{
+            display:flex;
+            align-items:center;
+            gap:10px;
+            padding:5px 14px 5px 5px;
+            border-radius:999px;
+            background:rgba(255,255,255,.08);
+            cursor:pointer;
+        }
+        .h-user:hover{background:rgba(255,255,255,.14)}
+        .h-avatar{
+            width:36px;
+            height:36px;
+            border-radius:50%;
+            background:#08ACA8;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:13px;
+            font-weight:700;
+            color:#fff;
+        }
+        .h-uname{font-size:14px;font-weight:700;color:rgba(255,255,255,.96)}
 
-        /* ═══════════════════════════════════════
-           NAVBAR
-           ═══════════════════════════════════════ */
-        .nav {
-            position: sticky; top: 0; z-index: 100;
-            background: rgba(0,60,69,0.97);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(255,255,255,0.06);
+        .hdr-white{
+            background:#fff;
+            position:relative;
+            z-index:15;
+            box-shadow:0 1px 0 rgba(15,33,42,.08);
         }
-        .nav-inner {
-            max-width: 1240px; margin: 0 auto;
-            padding: 0 32px; height: 68px;
-            display: flex; align-items: center; justify-content: space-between;
+        .hdr-white-inner{
+            max-width:1496px;
+            margin:0 auto;
+            padding:0 24px 0 300px;
+            height:100px;
+            display:flex;
+            align-items:center;
         }
-        .nav-brand { display: flex; align-items: center; gap: 12px; cursor: pointer; text-decoration: none; }
-        .nav-brand svg { width: 36px; height: 36px; }
-        .nav-wordmark {
-            font-family: var(--font-body); font-weight: 700; font-size: 21px;
-            color: var(--wj-white); letter-spacing: -0.3px;
+        .hdr-nav{
+            display:flex;
+            align-items:center;
+            list-style:none;
+            width:100%;
+            gap:8px;
         }
-        .nav-wordmark em { font-style: normal; color: var(--wj-green); }
-        .nav-menu { display: flex; align-items: center; gap: 8px; list-style: none; }
-        .nav-menu a {
-            font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.65);
-            text-decoration: none; padding: 8px 18px; border-radius: 8px;
-            transition: all 0.25s var(--ease); cursor: pointer;
+        .hdr-nav a{
+            font-size:18px;
+            font-weight:700;
+            color:#061018;
+            text-decoration:none;
+            padding:12px 10px;
+            cursor:pointer;
+            transition:color .15s ease;
+            position:relative;
+            white-space:nowrap;
+            line-height:1;
         }
-        .nav-menu a:hover { color: #fff; background: rgba(255,255,255,0.08); }
-        .nav-cta {
-            background: var(--wj-green) !important; color: #fff !important;
-            font-weight: 600 !important; border-radius: 10px !important;
-            padding: 9px 24px !important; border: none; cursor: pointer;
-            font-family: var(--font-body); font-size: 14px;
-            transition: all 0.25s var(--ease);
+        .hdr-nav a:hover{color:#08ACA8}
+        .hdr-nav a:hover::after{
+            content:'';
+            position:absolute;
+            left:10px;
+            right:10px;
+            bottom:-14px;
+            height:3px;
+            background:#08ACA8;
+            border-radius:999px;
         }
-        .nav-cta:hover { background: var(--wj-green-light) !important; transform: translateY(-1px); }
-        .nav-user-pill {
-            display: flex; align-items: center; gap: 10px;
-            padding: 6px 16px 6px 6px; border-radius: 40px;
-            background: rgba(255,255,255,0.08); cursor: pointer;
-            transition: background 0.25s var(--ease);
+        .hdr-nav .srch{
+            margin-left:auto;
+            padding:10px 6px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:#061018;
         }
-        .nav-user-pill:hover { background: rgba(255,255,255,0.14); }
-        .nav-avatar {
-            width: 32px; height: 32px; border-radius: 50%;
-            background: var(--wj-green); display: flex; align-items: center; justify-content: center;
-            font-size: 13px; font-weight: 700; color: var(--wj-teal);
-        }
-        .nav-user-name { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.9); }
+        .hdr-nav .srch:hover::after{display:none}
 
-        /* ═══════════════════════════════════════
-           HOME — HERO
-           ═══════════════════════════════════════ */
-        .hero {
-            position: relative; overflow: hidden;
-            background: linear-gradient(165deg, var(--wj-teal) 0%, #005561 40%, var(--wj-teal-light) 100%);
-            padding: 72px 32px 96px;
+        /* ══════════════════════════════════════════
+           HOME — WestJet-style layout
+           ══════════════════════════════════════════ */
+        .home-grid{
+            max-width:1280px;margin:0 auto;padding:40px 32px;
+            display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;
         }
-        .hero-bg-circle {
-            position: absolute; border-radius: 50%; pointer-events: none;
+        /* Book a flight card */
+        .book-card{
+            background:#fff;border-radius:var(--r-lg);
+            box-shadow:var(--sh-sm);padding:36px 32px;
+            border:1px solid var(--wj-g100);
         }
-        .hero-bg-circle.c1 {
-            width: 700px; height: 700px; top: -300px; right: -150px;
-            background: radial-gradient(circle, rgba(0,178,169,0.12) 0%, transparent 70%);
+        .book-card h2{font-size:30px;font-weight:400;color:var(--wj-dark);margin-bottom:16px}
+        .book-note{
+            background:var(--wj-snow);border-left:3px solid var(--wj-g200);
+            padding:14px 16px;font-size:13px;color:var(--wj-g600);
+            line-height:1.5;margin-bottom:16px;border-radius:0 8px 8px 0;
         }
-        .hero-bg-circle.c2 {
-            width: 500px; height: 500px; bottom: -250px; left: -100px;
-            background: radial-gradient(circle, rgba(232,163,23,0.08) 0%, transparent 70%);
+        .book-signin{color:var(--wj-teal);font-weight:600;font-size:14px;text-decoration:none;display:inline-block;margin-bottom:28px;cursor:pointer}
+        .book-signin:hover{text-decoration:underline}
+        .book-field{margin-bottom:22px;border-bottom:2px solid var(--wj-g100);padding-bottom:4px}
+        .book-field label{display:block;font-size:12px;color:var(--wj-g400);margin-bottom:4px}
+        .book-field .val{font-size:16px;font-weight:500;color:var(--wj-dark)}
+        .book-field select{
+            width:100%;border:none;background:none;font-family:var(--font);
+            font-size:16px;font-weight:500;color:var(--wj-dark);
+            padding:2px 0;appearance:none;cursor:pointer;
         }
-        .hero-content { position: relative; z-index: 2; max-width: 1240px; margin: 0 auto; text-align: center; }
-        .hero h1 {
-            font-family: var(--font-display); font-size: 52px; font-weight: 800;
-            color: #fff; line-height: 1.15; margin-bottom: 14px; letter-spacing: -0.5px;
+        .book-field select:focus{outline:none}
+        .book-field input{
+            width:100%;border:none;background:none;font-family:var(--font);
+            font-size:16px;font-weight:500;color:var(--wj-dark);padding:2px 0;
         }
-        .hero h1 span { color: var(--wj-green-light); }
-        .hero-sub {
-            font-size: 17px; color: rgba(255,255,255,0.6); max-width: 480px;
-            margin: 0 auto 44px; line-height: 1.6;
+        .book-field input:focus{outline:none}
+        .book-field input::placeholder{color:var(--wj-g200)}
+        .book-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+        .book-submit{margin-top:8px}
+        .btn-book{
+            width:100%;padding:14px;background:var(--wj-teal);color:#fff;
+            font-family:var(--font);font-size:16px;font-weight:600;
+            border:none;border-radius:10px;cursor:pointer;transition:background .2s;
         }
+        .btn-book:hover{background:var(--wj-teal-hover)}
+        /* Promo card */
+        .promo-hero{
+            background:var(--wj-dark);border-radius:var(--r-lg);
+            padding:44px 40px;color:#fff;min-height:380px;
+            display:flex;flex-direction:column;justify-content:center;
+        }
+        .promo-hero h2{font-size:40px;font-weight:700;line-height:1.15;margin-bottom:18px}
+        .promo-hero p{font-size:15px;color:rgba(255,255,255,.65);line-height:1.6;margin-bottom:30px}
+        .promo-hero.personalized{
+            background:linear-gradient(135deg,#0C2D3F 0%,#0A4B5C 50%,#08606E 100%);
+            position:relative;overflow:hidden;
+        }
+        .promo-hero.personalized::before{
+            content:'';position:absolute;top:0;right:0;width:45%;height:100%;
+            background-size:cover;background-position:center;
+            opacity:.25;mask-image:linear-gradient(to left,rgba(0,0,0,.6),transparent);
+            -webkit-mask-image:linear-gradient(to left,rgba(0,0,0,.6),transparent);
+        }
+        .promo-hero.personalized.bg-banff::before{
+            background-image:url('https://images.unsplash.com/photo-1503614472-8c93d56e92ce?w=600&h=500&fit=crop');
+        }
+        .promo-hero.personalized.bg-cancun::before{
+            background-image:url('https://images.unsplash.com/photo-1510097467424-192d713fd8b2?w=600&h=500&fit=crop');
+        }
+        .promo-hero.personalized h2{font-size:28px;margin-bottom:10px;position:relative;z-index:2}
+        .promo-hero.personalized p{position:relative;z-index:2}
+        .promo-hero .price-compare{
+            display:flex;align-items:center;gap:16px;margin-bottom:24px;
+            position:relative;z-index:2;
+        }
+        .promo-hero .old-price{
+            font-size:22px;font-weight:600;
+            text-decoration:line-through;color:rgba(255,255,255,.4);
+        }
+        .promo-hero .new-price{
+            font-size:36px;font-weight:800;color:#00D4C8;
+        }
+        .promo-hero .save-tag{
+            background:rgba(0,212,200,.15);border:1px solid rgba(0,212,200,.3);
+            color:#00D4C8;font-size:12px;font-weight:700;
+            padding:4px 12px;border-radius:20px;
+        }
+        .promo-hero.personalized .btn-promo-hero{position:relative;z-index:2}
+        .btn-promo-hero{
+            display:inline-block;padding:16px 36px;
+            background:var(--wj-teal);color:#fff;
+            font-family:var(--font);font-size:15px;font-weight:600;
+            border:none;border-radius:10px;cursor:pointer;
+            transition:background .2s;align-self:flex-start;
+        }
+        .btn-promo-hero:hover{background:var(--wj-teal-hover)}
 
-        /* Search Widget */
-        .search-widget {
-            max-width: 880px; margin: 0 auto;
-            background: #fff; border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-xl); padding: 28px 32px 24px;
-        }
-        .sw-tabs { display: flex; gap: 4px; margin-bottom: 22px; }
-        .sw-tab {
-            font-family: var(--font-body); font-size: 13px; font-weight: 600;
-            padding: 8px 20px; border: none; background: none;
-            color: var(--wj-gray-400); cursor: pointer;
-            border-bottom: 2.5px solid transparent; transition: all 0.2s var(--ease);
-        }
-        .sw-tab.active { color: var(--wj-teal); border-bottom-color: var(--wj-green); }
-        .sw-fields {
-            display: grid; grid-template-columns: 1fr 1fr 1fr 1fr auto;
-            gap: 12px; align-items: end;
-        }
-        .sw-field label {
-            display: block; font-size: 10px; font-weight: 700;
-            text-transform: uppercase; letter-spacing: 1px;
-            color: var(--wj-gray-400); margin-bottom: 5px;
-        }
-        .sw-field input {
-            width: 100%; padding: 11px 14px;
-            border: 2px solid var(--wj-gray-100); border-radius: 10px;
-            font-family: var(--font-body); font-size: 14px; color: var(--wj-teal);
-            transition: border-color 0.2s var(--ease); background: #fff;
-        }
-        .sw-field input:focus { outline: none; border-color: var(--wj-green); }
-        .sw-field input::placeholder { color: var(--wj-gray-200); }
-        .btn-primary {
-            background: var(--wj-green); color: #fff;
-            font-family: var(--font-body); font-weight: 700; font-size: 14px;
-            border: none; border-radius: 12px; padding: 11px 32px;
-            cursor: pointer; transition: all 0.25s var(--ease); white-space: nowrap;
-        }
-        .btn-primary:hover { background: var(--wj-green-light); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+        /* Section / Deals */
+        .sec{max-width:1280px;margin:0 auto;padding:60px 32px}
+        .sec h2{font-size:28px;font-weight:700;margin-bottom:6px}
+        .sec>p{color:var(--wj-g400);font-size:15px;margin-bottom:32px}
+        .d-row{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+        .d-card{border-radius:var(--r-lg);overflow:hidden;background:#fff;box-shadow:var(--sh-sm);transition:transform .3s var(--ease),box-shadow .3s var(--ease);cursor:pointer}
+        .d-card:hover{transform:translateY(-5px);box-shadow:var(--sh-lg)}
+        .d-img{height:185px;background-size:cover;background-position:center;position:relative}
+        .d-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.3) 0%,transparent 55%)}
+        .d-badge{position:absolute;top:12px;left:12px;z-index:2;background:var(--wj-gold);color:#fff;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:4px 12px;border-radius:20px}
+        .d-body{padding:16px 18px}
+        .d-route{font-size:15px;font-weight:700;display:flex;align-items:center;gap:7px;margin-bottom:2px}
+        .d-route .a{color:var(--wj-teal)}
+        .d-dates{font-size:13px;color:var(--wj-g400);margin-bottom:10px}
+        .d-price{display:flex;align-items:baseline;gap:4px}
+        .d-price .l{font-size:12px;color:var(--wj-g400)}
+        .d-price .v{font-size:24px;font-weight:700;color:var(--wj-teal)}
+        .d-price .c{font-size:12px;color:var(--wj-g400)}
 
-        /* Deals Grid */
-        .section { max-width: 1240px; margin: 0 auto; padding: 64px 32px; }
-        .section-header h2 {
-            font-family: var(--font-display); font-size: 32px; font-weight: 700;
-            margin-bottom: 6px;
-        }
-        .section-header p { color: var(--wj-gray-400); font-size: 15px; margin-bottom: 36px; }
-        .deals-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-        .deal {
-            border-radius: var(--radius-lg); overflow: hidden;
-            background: #fff; box-shadow: var(--shadow-sm);
-            transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
-            cursor: pointer;
-        }
-        .deal:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
-        .deal-photo {
-            height: 190px; background-size: cover; background-position: center;
-            position: relative;
-        }
-        .deal-photo::after {
-            content: ''; position: absolute; inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.35) 0%, transparent 60%);
-        }
-        .deal-badge {
-            position: absolute; top: 14px; left: 14px; z-index: 2;
-            background: var(--wj-gold); color: #fff;
-            font-size: 10px; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 0.6px; padding: 4px 12px; border-radius: 20px;
-        }
-        .deal-info { padding: 18px 20px; }
-        .deal-route {
-            font-family: var(--font-body); font-size: 15px; font-weight: 700;
-            display: flex; align-items: center; gap: 8px; margin-bottom: 3px;
-        }
-        .deal-route .arr { color: var(--wj-green); }
-        .deal-dates { font-size: 13px; color: var(--wj-gray-400); margin-bottom: 12px; }
-        .deal-bottom { display: flex; align-items: baseline; gap: 5px; }
-        .deal-bottom .lbl { font-size: 12px; color: var(--wj-gray-400); }
-        .deal-bottom .price {
-            font-family: var(--font-display); font-size: 26px; font-weight: 700; color: var(--wj-green);
-        }
-        .deal-bottom .cur { font-size: 13px; color: var(--wj-gray-400); }
+        /* ══════════════════════════════════════════
+           SIGN-IN
+           ══════════════════════════════════════════ */
+        .si-bg{min-height:calc(100vh - 108px);display:flex;align-items:center;justify-content:center;padding:48px 24px;background:linear-gradient(170deg,var(--wj-snow) 0%,#DEE6EB 100%);position:relative}
+        .si-bg::before{content:'';position:absolute;top:0;right:0;width:42%;height:100%;background:linear-gradient(135deg,var(--wj-dark),var(--wj-navy));clip-path:polygon(28% 0,100% 0,100% 100%,0% 100%);opacity:.05}
+        .si-box{background:#fff;border-radius:var(--r-xl);box-shadow:0 20px 60px rgba(27,42,59,.12);padding:44px 42px;width:100%;max-width:420px;position:relative;z-index:2}
+        .si-box h2{font-size:26px;font-weight:700;margin-bottom:4px}
+        .si-box .lead{color:var(--wj-g400);font-size:14px;margin-bottom:30px}
+        .fg{margin-bottom:18px}
+        .fg label{display:block;font-size:13px;font-weight:600;color:var(--wj-dark);margin-bottom:5px}
+        .fg input{width:100%;padding:11px 14px;border:2px solid var(--wj-g100);border-radius:10px;font-family:var(--font);font-size:14px;color:var(--wj-dark);transition:border-color .2s}
+        .fg input:focus{outline:none;border-color:var(--wj-teal)}
+        .fg input.err{border-color:var(--wj-red)}
+        .fg .et{display:none;font-size:12px;color:var(--wj-red);margin-top:4px}
+        .fg input.err~.et{display:block}
+        .si-opts{display:flex;align-items:center;justify-content:space-between;margin-bottom:26px;font-size:13px}
+        .si-opts label{display:flex;align-items:center;gap:6px;color:var(--wj-g600);cursor:pointer}
+        .si-opts a{color:var(--wj-teal);text-decoration:none;font-weight:600}
+        .btn-full{width:100%;padding:13px;border:none;border-radius:var(--r);background:var(--wj-teal);color:#fff;font-family:var(--font);font-size:15px;font-weight:700;cursor:pointer;transition:all .2s var(--ease)}
+        .btn-full:hover{background:var(--wj-teal-hover);transform:translateY(-1px)}
+        .la{display:none;margin-top:14px;padding:11px 14px;border-radius:10px;font-size:13px;font-weight:500;background:#FEF2F2;color:var(--wj-red);border:1px solid #FECACA}
+        .la.show{display:block;animation:shake .4s ease}
+        @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-5px)}40%{transform:translateX(5px)}60%{transform:translateX(-3px)}80%{transform:translateX(3px)}}
+        .si-sep{display:flex;align-items:center;gap:14px;margin:22px 0;color:var(--wj-g400);font-size:12px}
+        .si-sep::before,.si-sep::after{content:'';flex:1;height:1px;background:var(--wj-g100)}
+        .btn-out{width:100%;padding:12px;border:2px solid var(--wj-g100);border-radius:var(--r);background:transparent;color:var(--wj-dark);font-family:var(--font);font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}
+        .btn-out:hover{border-color:var(--wj-dark);background:var(--wj-snow)}
 
-        /* ═══════════════════════════════════════
-           SIGN-IN PAGE
-           ═══════════════════════════════════════ */
-        .signin-bg {
-            min-height: calc(100vh - 68px);
-            display: flex; align-items: center; justify-content: center;
-            padding: 48px 24px;
-            background: linear-gradient(170deg, var(--wj-snow) 0%, #DBE8EC 100%);
-            position: relative;
-        }
-        .signin-bg::before {
-            content: ''; position: absolute; top: 0; right: 0;
-            width: 45%; height: 100%;
-            background: linear-gradient(135deg, var(--wj-teal) 0%, var(--wj-teal-light) 100%);
-            clip-path: polygon(25% 0, 100% 0, 100% 100%, 0% 100%);
-            opacity: 0.06;
-        }
-        .signin-box {
-            background: #fff; border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-xl); padding: 48px 44px;
-            width: 100%; max-width: 430px; position: relative; z-index: 2;
-        }
-        .signin-box h2 {
-            font-family: var(--font-display); font-size: 28px; font-weight: 700;
-            margin-bottom: 4px;
-        }
-        .signin-box .lead { color: var(--wj-gray-400); font-size: 14px; margin-bottom: 32px; }
-        .fg { margin-bottom: 20px; }
-        .fg label {
-            display: block; font-size: 13px; font-weight: 600;
-            color: var(--wj-teal); margin-bottom: 6px;
-        }
-        .fg input {
-            width: 100%; padding: 12px 16px;
-            border: 2px solid var(--wj-gray-100); border-radius: 10px;
-            font-family: var(--font-body); font-size: 14px; color: var(--wj-teal);
-            transition: border-color 0.2s var(--ease);
-        }
-        .fg input:focus { outline: none; border-color: var(--wj-green); }
-        .fg input.err { border-color: var(--wj-red); }
-        .fg .err-text { display: none; font-size: 12px; color: var(--wj-red); margin-top: 5px; }
-        .fg input.err ~ .err-text { display: block; }
-        .signin-opts {
-            display: flex; align-items: center; justify-content: space-between;
-            margin-bottom: 28px; font-size: 13px;
-        }
-        .signin-opts label {
-            display: flex; align-items: center; gap: 6px;
-            color: var(--wj-gray-600); cursor: pointer;
-        }
-        .signin-opts a { color: var(--wj-green); text-decoration: none; font-weight: 600; }
-        .btn-login {
-            width: 100%; padding: 14px; border: none; border-radius: 12px;
-            background: var(--wj-green); color: #fff;
-            font-family: var(--font-body); font-size: 15px; font-weight: 700;
-            cursor: pointer; transition: all 0.25s var(--ease);
-        }
-        .btn-login:hover { background: var(--wj-green-light); transform: translateY(-1px); }
-        .login-alert {
-            display: none; margin-top: 16px; padding: 12px 16px;
-            border-radius: 10px; font-size: 13px; font-weight: 500;
-            background: #FEF2F2; color: var(--wj-red); border: 1px solid #FECACA;
-        }
-        .login-alert.show { display: block; animation: shake 0.4s ease; }
-        @keyframes shake {
-            0%,100%{transform:translateX(0)} 20%{transform:translateX(-6px)} 40%{transform:translateX(6px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)}
-        }
-        .signin-sep {
-            display: flex; align-items: center; gap: 14px;
-            margin: 24px 0; color: var(--wj-gray-400); font-size: 12px;
-        }
-        .signin-sep::before,.signin-sep::after { content:''; flex:1; height:1px; background:var(--wj-gray-100); }
-        .btn-ghost {
-            width: 100%; padding: 13px; border: 2px solid var(--wj-gray-100);
-            border-radius: 12px; background: transparent; color: var(--wj-teal);
-            font-family: var(--font-body); font-size: 14px; font-weight: 600;
-            cursor: pointer; transition: all 0.25s var(--ease);
-        }
-        .btn-ghost:hover { border-color: var(--wj-teal); background: var(--wj-snow); }
+        /* ══════════════════════════════════════════
+           OFFERS
+           ══════════════════════════════════════════ */
+        .oh{background:linear-gradient(145deg,var(--wj-dark) 0%,#1E3A50 50%,var(--wj-navy) 100%);padding:52px 32px 64px;text-align:center;position:relative;overflow:hidden}
+        .oh::before{content:'';position:absolute;width:450px;height:450px;top:-180px;right:-80px;border-radius:50%;background:radial-gradient(circle,rgba(0,170,166,.1) 0%,transparent 70%)}
+        .oh h1{font-size:36px;font-weight:700;color:#fff;margin-bottom:8px;position:relative;z-index:2}
+        .oh .os{color:rgba(255,255,255,.55);font-size:15px;max-width:520px;margin:0 auto;position:relative;z-index:2;line-height:1.6}
+        .oh .os strong{color:var(--wj-teal);font-weight:600}
+        .fb{max-width:1280px;margin:-26px auto 0;padding:0 32px;position:relative;z-index:10;display:flex;gap:10px;flex-wrap:wrap}
+        .pill{padding:9px 22px;border-radius:40px;background:#fff;border:2px solid var(--wj-g100);font-family:var(--font);font-size:13px;font-weight:600;color:var(--wj-g600);cursor:pointer;box-shadow:var(--sh-sm);transition:all .2s var(--ease)}
+        .pill:hover,.pill.on{background:var(--wj-dark);color:#fff;border-color:var(--wj-dark)}
+        .ow{max-width:1280px;margin:32px auto;padding:0 32px 40px}
+        .og{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+        .oc{background:#fff;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh-sm);display:flex;transition:transform .3s var(--ease),box-shadow .3s var(--ease);cursor:pointer}
+        .oc:hover{transform:translateY(-4px);box-shadow:var(--sh-lg)}
+        .oc-img{width:210px;min-height:210px;flex-shrink:0;background-size:cover;background-position:center;position:relative}
+        .oc-tag{position:absolute;top:12px;left:12px;z-index:2;padding:4px 11px;border-radius:20px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:#fff;background:var(--wj-gold)}
+        .oc-body{flex:1;padding:22px;display:flex;flex-direction:column;justify-content:space-between}
+        .oc-title{font-size:17px;font-weight:700;margin-bottom:7px;line-height:1.3}
+        .oc-desc{font-size:13px;color:var(--wj-g400);line-height:1.6;margin-bottom:16px}
+        .oc-foot{display:flex;align-items:center;justify-content:space-between}
+        .oc-pr .s{font-size:11px;color:var(--wj-g400)}
+        .oc-pr .b{font-size:26px;font-weight:700;color:var(--wj-teal)}
+        .btn-sm{padding:9px 20px;border:none;border-radius:10px;background:var(--wj-dark);color:#fff;font-family:var(--font);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
+        .btn-sm:hover{background:var(--wj-dark-2)}
+        .promo{margin-top:32px;border-radius:var(--r-lg);background:linear-gradient(100deg,var(--wj-gold),#C07E08);padding:32px 36px;display:flex;align-items:center;justify-content:space-between;color:#fff}
+        .promo h3{font-size:22px;font-weight:700;margin-bottom:4px}
+        .promo p{font-size:14px;opacity:.9}
+        .btn-w{background:#fff;color:var(--wj-gold);border:none;border-radius:var(--r);padding:11px 28px;font-family:var(--font);font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap}
+        .btn-w:hover{transform:scale(1.03);box-shadow:var(--sh-md)}
 
-        /* ═══════════════════════════════════════
-           OFFERS PAGE
-           ═══════════════════════════════════════ */
-        .offers-hero {
-            background: linear-gradient(140deg, var(--wj-teal) 0%, #006070 50%, var(--wj-teal-light) 100%);
-            padding: 56px 32px 72px; text-align: center;
-            position: relative; overflow: hidden;
-        }
-        .offers-hero::before {
-            content: ''; position: absolute; width: 500px; height: 500px;
-            top: -200px; right: -100px; border-radius: 50%;
-            background: radial-gradient(circle, rgba(0,212,200,0.1) 0%, transparent 70%);
-        }
-        .offers-hero h1 {
-            font-family: var(--font-display); font-size: 40px; font-weight: 800;
-            color: #fff; margin-bottom: 8px; position: relative; z-index: 2;
-        }
-        .offers-hero .oh-sub {
-            color: rgba(255,255,255,0.6); font-size: 16px; max-width: 540px;
-            margin: 0 auto; position: relative; z-index: 2; line-height: 1.6;
-        }
-        .offers-hero .oh-sub strong { color: var(--wj-green-light); font-weight: 600; }
+        /* ══════════════════════════════════════════
+           FOOTER — Matches westjet.com
+           ══════════════════════════════════════════ */
+        .ft-app{background:var(--wj-teal);padding:0 32px}
+        .ft-app-in{max-width:1220px;margin:0 auto;padding:28px 36px;display:flex;align-items:center;justify-content:space-between;border-radius:var(--r-lg)}
+        .ft-app-in h3{font-size:20px;font-weight:700;color:#fff;margin-bottom:3px}
+        .ft-app-in p{font-size:13px;color:rgba(255,255,255,.7)}
+        .ft-badges{display:flex;gap:12px}
+        .ft-badge{display:inline-flex;align-items:center;gap:8px;background:#111;color:#fff;border-radius:8px;padding:8px 14px;font-size:12px;text-decoration:none;border:1px solid rgba(255,255,255,.12);transition:background .2s}
+        .ft-badge:hover{background:#222}
+        .ft-badge .sl{font-size:9px;color:rgba(255,255,255,.55);display:block;line-height:1}
+        .ft-badge .sn{font-size:13px;font-weight:700;display:block;line-height:1.2}
+        .ft-main{background:#1A2332;padding:44px 32px 28px}
+        .ft-grid{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:36px}
+        .ft-col h4{font-size:11px;font-weight:500;color:var(--wj-teal);text-transform:uppercase;letter-spacing:.4px;margin-bottom:14px}
+        .ft-col a{display:block;font-size:13px;font-weight:600;color:#fff;text-decoration:none;padding:5px 0;transition:color .2s}
+        .ft-col a:hover{color:var(--wj-teal)}
+        .ft-col .ext::after{content:' \2197';font-size:10px;opacity:.4}
+        .ft-bot{max-width:1280px;margin:24px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between}
+        .ft-copy{font-size:11px;color:rgba(255,255,255,.25)}
+        .ft-soc{display:flex;gap:14px}
+        .ft-soc a{color:rgba(255,255,255,.35);font-size:12px;font-weight:500;text-decoration:none;transition:color .2s}
+        .ft-soc a:hover{color:#fff}
 
-        /* Filters */
-        .offer-filters-bar {
-            max-width: 1240px; margin: -28px auto 0; padding: 0 32px;
-            position: relative; z-index: 10; display: flex; gap: 10px; flex-wrap: wrap;
+        /* ══════ RESPONSIVE ══════ */
+        @media(max-width:1100px){
+            .hdr-dark-inner{padding:0 22px 0 320px}
+            .hdr-white-inner{padding:0 22px 0 290px}
+            .hdr-nav{gap:2px}
+            .hdr-nav a{font-size:16px;padding:12px 8px}
         }
-        .pill {
-            padding: 10px 24px; border-radius: 40px;
-            background: #fff; border: 2px solid var(--wj-gray-100);
-            font-family: var(--font-body); font-size: 13px; font-weight: 600;
-            color: var(--wj-gray-600); cursor: pointer;
-            box-shadow: var(--shadow-xs); transition: all 0.25s var(--ease);
-        }
-        .pill:hover, .pill.on { background: var(--wj-teal); color: #fff; border-color: var(--wj-teal); }
-
-        /* Offers Grid */
-        .offers-wrap { max-width: 1240px; margin: 36px auto; padding: 0 32px 80px; }
-        .offers-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px; }
-        .ocard {
-            background: #fff; border-radius: var(--radius-lg); overflow: hidden;
-            box-shadow: var(--shadow-sm); display: flex;
-            transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
-            cursor: pointer;
-        }
-        .ocard:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
-        .ocard-img {
-            width: 220px; min-height: 220px; flex-shrink: 0;
-            background-size: cover; background-position: center;
-            position: relative;
-        }
-        .ocard-img::after {
-            content:''; position:absolute; inset:0;
-            background: linear-gradient(to right, transparent 50%, rgba(255,255,255,0.04) 100%);
-        }
-        .ocard-tag {
-            position: absolute; top: 14px; left: 14px; z-index: 2;
-            padding: 4px 12px; border-radius: 20px;
-            font-size: 10px; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 0.5px; color: #fff; background: var(--wj-gold);
-        }
-        .ocard-body {
-            flex: 1; padding: 24px; display: flex; flex-direction: column; justify-content: space-between;
-        }
-        .ocard-title {
-            font-family: var(--font-display); font-size: 18px; font-weight: 700;
-            margin-bottom: 8px; line-height: 1.3;
-        }
-        .ocard-desc { font-size: 13px; color: var(--wj-gray-400); line-height: 1.6; margin-bottom: 18px; }
-        .ocard-foot { display: flex; align-items: center; justify-content: space-between; }
-        .ocard-price .sm { font-size: 11px; color: var(--wj-gray-400); }
-        .ocard-price .big {
-            font-family: var(--font-display); font-size: 28px; font-weight: 700; color: var(--wj-green);
-        }
-        .btn-deal {
-            padding: 10px 22px; border: none; border-radius: 10px;
-            background: var(--wj-teal); color: #fff;
-            font-family: var(--font-body); font-size: 13px; font-weight: 600;
-            cursor: pointer; transition: all 0.25s var(--ease);
-        }
-        .btn-deal:hover { background: var(--wj-teal-mid); }
-
-        /* Promo Strip */
-        .promo-strip {
-            margin-top: 36px; border-radius: var(--radius-lg);
-            background: linear-gradient(100deg, var(--wj-gold) 0%, #D4900E 100%);
-            padding: 36px 40px; display: flex; align-items: center;
-            justify-content: space-between; color: #fff;
-        }
-        .promo-strip h3 { font-family: var(--font-display); font-size: 24px; font-weight: 700; margin-bottom: 6px; }
-        .promo-strip p { font-size: 14px; opacity: 0.9; }
-        .btn-promo {
-            background: #fff; color: var(--wj-gold); border: none; border-radius: 12px;
-            padding: 12px 32px; font-family: var(--font-body); font-size: 14px;
-            font-weight: 700; cursor: pointer; transition: all 0.25s var(--ease); white-space: nowrap;
-        }
-        .btn-promo:hover { transform: scale(1.04); box-shadow: var(--shadow-md); }
-
-        /* Footer */
-        .foot {
-            background: var(--wj-teal); padding: 28px 32px; text-align: center;
-            font-size: 12px; color: rgba(255,255,255,0.3);
-        }
-
-        /* ═══════════════════════════════════════
-           RESPONSIVE
-           ═══════════════════════════════════════ */
         @media(max-width:900px){
-            .sw-fields{grid-template-columns:1fr 1fr;}
-            .deals-row{grid-template-columns:1fr;}
-            .offers-grid{grid-template-columns:1fr;}
-            .ocard{flex-direction:column;}
-            .ocard-img{width:100%;min-height:180px;}
-            .hero h1{font-size:36px;}
-            .promo-strip{flex-direction:column;gap:20px;text-align:center;}
+            .home-grid{grid-template-columns:1fr;gap:24px}
+            .d-row{grid-template-columns:1fr}
+            .og{grid-template-columns:1fr}
+            .oc{flex-direction:column}.oc-img{width:100%;min-height:170px}
+            .promo{flex-direction:column;gap:18px;text-align:center}
+            .hdr-teal{
+                left:12px;
+                width:222px;
+                height:128px;
+                padding:0 18px;
+            }
+            .hdr-teal .logo svg{width:28px;height:28px}
+            .hdr-teal .logo-txt{font-size:18px}
+            .hdr-dark-inner{padding:0 16px 0 248px}
+            .hdr-white-inner{padding:0 16px 0 246px;height:86px}
+            .hdr-nav{overflow-x:auto;-webkit-overflow-scrolling:touch}
+            .hdr-nav a{font-size:15px;padding:10px 8px}
+            .ft-grid{grid-template-columns:1fr 1fr;gap:28px}
+            .ft-app-in{flex-direction:column;gap:18px;text-align:center}
         }
         @media(max-width:600px){
-            .sw-fields{grid-template-columns:1fr;}
-            .nav-inner{padding:0 16px;}
-            .section{padding:48px 16px;}
-            .offers-wrap{padding:0 16px 60px;}
-            .offer-filters-bar{padding:0 16px;}
+            .sw-row{grid-template-columns:1fr}
+            .hdr-dark{height:70px}
+            .hdr-dark-inner{padding:0 12px 0 164px;height:70px}
+            .hdr-auth{gap:12px}
+            .hdr-auth .signin{font-size:14px}
+            .hdr-auth .create{font-size:14px;padding:12px 16px}
+            .hdr-teal{
+                top:7px;
+                left:8px;
+                width:148px;
+                height:102px;
+                padding:0 12px;
+                border-radius:10px;
+            }
+            .hdr-teal .logo{gap:6px}
+            .hdr-teal .logo svg{width:20px;height:20px}
+            .hdr-teal .logo-txt{font-size:12px;letter-spacing:.4px}
+            .hdr-white-inner{padding:0 12px 0 150px;height:74px}
+            .hdr-nav a{font-size:13px}
+            .sec{padding:44px 16px}.ow{padding:0 16px 40px}.fb{padding:0 16px}
+            .ft-grid{grid-template-columns:1fr;gap:24px}
+            .ft-main{padding:32px 16px 20px}.ft-app{padding:0 16px}
+            .ft-bot{flex-direction:column;gap:10px;text-align:center}
         }
     </style>
 </head>
 <body>
 
-<!-- ════════════════ NAVBAR ════════════════ -->
-<nav class="nav">
-    <div class="nav-inner">
-        <a class="nav-brand" onclick="go('home')">
-            <svg viewBox="0 0 36 36" fill="none">
-                <path d="M6 30L18 4L30 30" stroke="#00B2A9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M10 22H26" stroke="#00B2A9" stroke-width="2.5" stroke-linecap="round"/>
-                <circle cx="18" cy="10" r="2.2" fill="#00B2A9"/>
-            </svg>
-            <span class="nav-wordmark">West<em>Jet</em></span>
+<!-- ═══════ HEADER ═══════ -->
+<header>
+    <div class="hdr-dark">
+        <a class="hdr-teal" onclick="go('home')">
+            <span class="logo">
+                <svg viewBox="0 0 36 36" fill="none" aria-hidden="true">
+                    <path d="M18 2C18 2 20 7.5 22 9.5C24 11.5 28 11.5 28 11.5C28 11.5 25.2 14.2 24.2 16.2C23.2 18.2 24.2 21 24.2 21C24.2 21 21.2 19 18 19C14.8 19 11.8 21 11.8 21C11.8 21 12.8 18.2 11.8 16.2C10.8 14.2 8 11.5 8 11.5C8 11.5 12 11.5 14 9.5C16 7.5 18 2 18 2Z" fill="white"/>
+                    <path d="M18 9L22.5 20H13.5L18 9Z" fill="#0E2B31" opacity=".28"/>
+                </svg>
+                <span class="logo-txt">WESTJET 30</span>
+            </span>
         </a>
-        <ul class="nav-menu" id="navMenu">
-            <li><a onclick="go('home')">Flights</a></li>
-            <li><a onclick="go('offers')">Offers</a></li>
-            <li><a>Destinations</a></li>
-            <li id="navAuth"></li>
-        </ul>
+        <div class="hdr-dark-inner">
+            <div class="hdr-auth" id="navAuth"></div>
+        </div>
     </div>
-</nav>
+    <nav class="hdr-white">
+        <div class="hdr-white-inner">
+            <ul class="hdr-nav">
+                <li><a onclick="go('home')">Flights</a></li>
+                <li><a>Vacations</a></li>
+                <li><a onclick="go('offers')">Offers</a></li>
+                <li><a>Manage Trips</a></li>
+                <li><a>Check in</a></li>
+                <li><a>Flight status</a></li>
+                <li><a>WestJet Rewards</a></li>
+                <li><a>Help</a></li>
+                <li><a class="srch" aria-label="Search"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
 
-<!-- ════════════════ PAGE: HOME ════════════════ -->
-<div id="pg-home" class="page active">
-    <section class="hero">
-        <div class="hero-bg-circle c1"></div>
-        <div class="hero-bg-circle c2"></div>
-        <div class="hero-content">
-            <h1>Fly to your <span>next adventure</span></h1>
-            <p class="hero-sub">Discover low fares across Canada and beyond. Book your next getaway with WestJet.</p>
-            <div class="search-widget">
-                <div class="sw-tabs">
-                    <button class="sw-tab active" onclick="swTab(this)">Round Trip</button>
-                    <button class="sw-tab" onclick="swTab(this)">One Way</button>
-                    <button class="sw-tab" onclick="swTab(this)">Multi-City</button>
-                </div>
-                <div class="sw-fields">
-                    <div class="sw-field"><label>From</label><input value="Calgary (YYC)" id="fFrom"></div>
-                    <div class="sw-field"><label>To</label><input placeholder="Where to?" id="fTo"></div>
-                    <div class="sw-field"><label>Depart</label><input type="date" id="fDep"></div>
-                    <div class="sw-field"><label>Return</label><input type="date" id="fRet"></div>
-                    <button class="btn-primary" onclick="doSearch()">Search</button>
-                </div>
+
+<!-- ═══════ PAGE: HOME ═══════ -->
+<div id="pg-home" class="pg on">
+    <div class="home-grid">
+        <!-- Book a flight -->
+        <div class="book-card">
+            <h2>Book a flight</h2>
+            <div class="book-note">Sign in to apply companion vouchers, access Member Exclusive savings and earn or redeem WestJet points.</div>
+            <a class="book-signin" onclick="go('signin')">Sign in</a>
+            <div class="book-field">
+                <label>Trip type</label>
+                <select><option>Return trip</option><option>One way</option><option>Multi-city</option></select>
+            </div>
+            <div class="book-field">
+                <label>From</label>
+                <input type="text" value="Calgary, AB" id="fFrom">
+            </div>
+            <div class="book-field">
+                <label>Going to</label>
+                <input type="text" placeholder="City or airport" id="fTo">
+            </div>
+            <div class="book-row">
+                <div class="book-field"><label>Depart</label><input type="date" id="fDep"></div>
+                <div class="book-field"><label>Return</label><input type="date" id="fRet"></div>
+            </div>
+            <div class="book-submit"><button class="btn-book" onclick="doSearch()">Search flights</button></div>
+        </div>
+        <!-- Promo -->
+        <div class="promo-hero" id="homeBanner">
+            <h2>Our Summer Sale is ending</h2>
+            <p>The countdown is on. Book your summer getaway before these fares take off.</p>
+            <button class="btn-promo-hero" onclick="go('offers')">Book now</button>
+        </div>
+    </div>
+    <section class="sec">
+        <h2>Trending Deals</h2>
+        <p>Hand-picked fares from our most popular routes</p>
+        <div class="d-row">
+            <div class="d-card" onclick="go('signin')">
+                <div class="d-img" style="background-image:url('https://images.unsplash.com/photo-1559511260-66a654ae982a?w=600&h=400&fit=crop')"><span class="d-badge">Popular</span></div>
+                <div class="d-body"><div class="d-route">Calgary <span class="a">&rarr;</span> Vancouver</div><div class="d-dates">Mar 15 – Mar 22</div><div class="d-price"><span class="l">from</span><span class="v">$129</span><span class="c">CAD</span></div></div>
+            </div>
+            <div class="d-card" onclick="go('signin')">
+                <div class="d-img" style="background-image:url('https://images.unsplash.com/photo-1510097467424-192d713fd8b2?w=600&h=400&fit=crop')"><span class="d-badge">Hot Deal</span></div>
+                <div class="d-body"><div class="d-route">Toronto <span class="a">&rarr;</span> Cancún</div><div class="d-dates">Apr 1 – Apr 8</div><div class="d-price"><span class="l">from</span><span class="v">$299</span><span class="c">CAD</span></div></div>
+            </div>
+            <div class="d-card" onclick="go('signin')">
+                <div class="d-img" style="background-image:url('https://images.unsplash.com/photo-1542259009477-d625272157b7?w=600&h=400&fit=crop')"><span class="d-badge">Limited</span></div>
+                <div class="d-body"><div class="d-route">Vancouver <span class="a">&rarr;</span> Maui</div><div class="d-dates">May 10 – May 17</div><div class="d-price"><span class="l">from</span><span class="v">$389</span><span class="c">CAD</span></div></div>
             </div>
         </div>
     </section>
-
-    <section class="section">
-        <div class="section-header">
-            <h2>Trending Deals</h2>
-            <p>Hand-picked fares from our most popular routes</p>
-        </div>
-        <div class="deals-row">
-            <div class="deal" onclick="go('signin')">
-                <div class="deal-photo" style="background-image:url('https://images.unsplash.com/photo-1559511260-66a654ae982a?w=600&h=400&fit=crop')">
-                    <span class="deal-badge">Popular</span>
-                </div>
-                <div class="deal-info">
-                    <div class="deal-route">Calgary <span class="arr">&rarr;</span> Vancouver</div>
-                    <div class="deal-dates">Mar 15 – Mar 22</div>
-                    <div class="deal-bottom"><span class="lbl">from</span><span class="price">$129</span><span class="cur">CAD</span></div>
-                </div>
-            </div>
-            <div class="deal" onclick="go('signin')">
-                <div class="deal-photo" style="background-image:url('https://images.unsplash.com/photo-1510097467424-192d713fd8b2?w=600&h=400&fit=crop')">
-                    <span class="deal-badge">Hot Deal</span>
-                </div>
-                <div class="deal-info">
-                    <div class="deal-route">Toronto <span class="arr">&rarr;</span> Cancún</div>
-                    <div class="deal-dates">Apr 1 – Apr 8</div>
-                    <div class="deal-bottom"><span class="lbl">from</span><span class="price">$299</span><span class="cur">CAD</span></div>
-                </div>
-            </div>
-            <div class="deal" onclick="go('signin')">
-                <div class="deal-photo" style="background-image:url('https://images.unsplash.com/photo-1542259009477-d625272157b7?w=600&h=400&fit=crop')">
-                    <span class="deal-badge">Limited</span>
-                </div>
-                <div class="deal-info">
-                    <div class="deal-route">Vancouver <span class="arr">&rarr;</span> Maui</div>
-                    <div class="deal-dates">May 10 – May 17</div>
-                    <div class="deal-bottom"><span class="lbl">from</span><span class="price">$389</span><span class="cur">CAD</span></div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <footer class="foot">&copy; 2026 WestJet. For demonstration purposes only.</footer>
+    <!-- Footer -->
+    <div class="ft-app"><div class="ft-app-in"><div><h3>Download the app today</h3><p>Get your own copy of the WestJet app, and enhance your next travel experience.</p></div><div class="ft-badges"><a href="#" class="ft-badge"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg><div><span class="sl">Download on the</span><span class="sn">App Store</span></div></a><a href="#" class="ft-badge"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M3.61 1.814L13.793 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.61-.92zm10.89 9.48l2.3-2.3 4.63 2.67a1 1 0 010 1.73l-4.63 2.67-2.3-2.3L16.8 12l-2.3-2.3zm-1.4 1.413L5.41 20.4l7.69-4.44 2.3-2.3-2.3-2.3zM5.41 3.6l7.69 7.69 2.3-2.3L5.41 3.6z"/></svg><div><span class="sl">GET IT ON</span><span class="sn">Google Play</span></div></a></div></div></div>
+    <div class="ft-main"><div class="ft-grid"><div class="ft-col"><h4>About WestJet</h4><a href="#">Who We Are</a><a href="#">Great Careers</a><a href="#">Newsroom</a><a href="#">Our aircraft</a><a href="#">Destinations</a><a href="#">Fares, Taxes, and Fees</a></div><div class="ft-col"><h4>Other Services</h4><a href="#" class="ext">WestJet for Business Travel</a><a href="#" class="ext">WestJet for Travel Agents</a><a href="#" class="ext">Book with WestJet Biz</a><a href="#">Groups and Conventions</a><a href="#">Book with a companion voucher</a></div><div class="ft-col"><h4>Guest Support</h4><a href="#">Travel Help and Support</a><a href="#">Accessible Travel</a><a href="#">Flight Interruptions and Passenger Rights</a><a href="#">Share Feedback</a><h4 style="margin-top:18px">Legal</h4><a href="#">Privacy Policy</a><a href="#">Legal</a><a href="#">Modern Slavery Statement</a></div><div class="ft-col"><h4>Language</h4><a href="#">English &#x1F1E8;&#x1F1E6;</a><h4 style="margin-top:18px">Get in Touch</h4><a href="#">Contact us</a></div></div><div class="ft-bot"><span class="ft-copy">&copy; 2026 WestJet. For demonstration purposes only.</span><div class="ft-soc"><span style="color:rgba(255,255,255,.35)">We are social.</span><a href="#">f</a><a href="#">X</a><a href="#">in</a><a href="#">&#9654;</a></div></div></div>
 </div>
 
-<!-- ════════════════ PAGE: SIGN IN ════════════════ -->
-<div id="pg-signin" class="page">
-    <div class="signin-bg">
-        <div class="signin-box">
+<!-- ═══════ PAGE: SIGN IN ═══════ -->
+<div id="pg-signin" class="pg">
+    <div class="si-bg">
+        <div class="si-box">
             <h2>Welcome back</h2>
             <p class="lead">Sign in to your WestJet Rewards account</p>
-            <div class="fg">
-                <label for="inEmail">Email address</label>
-                <input type="email" id="inEmail" placeholder="name@example.com">
-                <div class="err-text">Please enter a valid email address</div>
-            </div>
-            <div class="fg">
-                <label for="inPwd">Password</label>
-                <input type="password" id="inPwd" placeholder="Enter your password">
-                <div class="err-text">Password is required</div>
-            </div>
-            <div class="signin-opts">
-                <label><input type="checkbox" checked> Remember me</label>
-                <a href="#">Forgot password?</a>
-            </div>
-            <button class="btn-login" onclick="doLogin()">Sign In</button>
-            <div class="login-alert" id="loginAlert"></div>
-            <div class="signin-sep">or</div>
-            <button class="btn-ghost">Create a WestJet Rewards Account</button>
+            <div class="fg"><label for="inEmail">Email address</label><input type="email" id="inEmail" placeholder="name@example.com"><div class="et">Please enter a valid email address</div></div>
+            <div class="fg"><label for="inPwd">Password</label><input type="password" id="inPwd" placeholder="Enter your password"><div class="et">Password is required</div></div>
+            <div class="si-opts"><label><input type="checkbox" checked> Remember me</label><a href="#">Forgot password?</a></div>
+            <button class="btn-full" onclick="doLogin()">Sign In</button>
+            <div class="la" id="loginAlert"></div>
+            <div class="si-sep">or</div>
+            <button class="btn-out">Create a WestJet Rewards Account</button>
         </div>
     </div>
 </div>
 
-<!-- ════════════════ PAGE: OFFERS ════════════════ -->
-<div id="pg-offers" class="page">
-    <section class="offers-hero">
-        <h1 id="offersTitle">Exclusive Offers</h1>
-        <p class="oh-sub" id="offersSub"></p>
+<!-- ═══════ PAGE: OFFERS ═══════ -->
+<div id="pg-offers" class="pg">
+    <section class="oh"><h1 id="offersTitle">Exclusive Offers</h1><p class="os" id="offersSub"></p></section>
+    <div class="fb" id="filterBar"></div>
+    <section class="ow">
+        <div class="og" id="offersGrid"></div>
+        <div class="promo" id="promoStrip"></div>
     </section>
-    <div class="offer-filters-bar" id="filterBar"></div>
-    <section class="offers-wrap">
-        <div class="offers-grid" id="offersGrid"></div>
-        <div class="promo-strip" id="promoStrip"></div>
-    </section>
-    <footer class="foot">&copy; 2026 WestJet. For demonstration purposes only.</footer>
+    <div class="ft-app"><div class="ft-app-in"><div><h3>Download the app today</h3><p>Get your own copy of the WestJet app, and enhance your next travel experience.</p></div><div class="ft-badges"><a href="#" class="ft-badge"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg><div><span class="sl">Download on the</span><span class="sn">App Store</span></div></a><a href="#" class="ft-badge"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M3.61 1.814L13.793 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.61-.92zm10.89 9.48l2.3-2.3 4.63 2.67a1 1 0 010 1.73l-4.63 2.67-2.3-2.3L16.8 12l-2.3-2.3zm-1.4 1.413L5.41 20.4l7.69-4.44 2.3-2.3-2.3-2.3zM5.41 3.6l7.69 7.69 2.3-2.3L5.41 3.6z"/></svg><div><span class="sl">GET IT ON</span><span class="sn">Google Play</span></div></a></div></div></div>
+    <div class="ft-main"><div class="ft-grid"><div class="ft-col"><h4>About WestJet</h4><a href="#">Who We Are</a><a href="#">Great Careers</a><a href="#">Newsroom</a><a href="#">Our aircraft</a><a href="#">Destinations</a><a href="#">Fares, Taxes, and Fees</a></div><div class="ft-col"><h4>Other Services</h4><a href="#" class="ext">WestJet for Business Travel</a><a href="#" class="ext">WestJet for Travel Agents</a><a href="#" class="ext">Book with WestJet Biz</a><a href="#">Groups and Conventions</a><a href="#">Book with a companion voucher</a></div><div class="ft-col"><h4>Guest Support</h4><a href="#">Travel Help and Support</a><a href="#">Accessible Travel</a><a href="#">Flight Interruptions and Passenger Rights</a><a href="#">Share Feedback</a><h4 style="margin-top:18px">Legal</h4><a href="#">Privacy Policy</a><a href="#">Legal</a><a href="#">Modern Slavery Statement</a></div><div class="ft-col"><h4>Language</h4><a href="#">English &#x1F1E8;&#x1F1E6;</a><h4 style="margin-top:18px">Get in Touch</h4><a href="#">Contact us</a></div></div><div class="ft-bot"><span class="ft-copy">&copy; 2026 WestJet. For demonstration purposes only.</span><div class="ft-soc"><span style="color:rgba(255,255,255,.35)">We are social.</span><a href="#">f</a><a href="#">X</a><a href="#">in</a><a href="#">&#9654;</a></div></div></div>
 </div>
 
-<!-- ════════════════════════════════════════════════
-     JAVASCRIPT
-     ════════════════════════════════════════════════ -->
 <script>
 /* ═══════ STATE ═══════ */
-let user = null;      // null | 'qc' | 'to'
-let curPage = 'home';
+var user = null;
+var curPage = 'home';
 
 /* ═══════ USER PROFILES ═══════ */
-const profiles = {
+var profiles = {
     qc: {
         email: 'westjet1@example.com',
         pwd: '1234',
@@ -601,9 +648,9 @@ const baseOffers = [
             desc: 'Escape to the turquoise waters of Cancún. All-inclusive resorts, great food, and endless sunshine make this one of the most popular winter getaways from Canada.'
         },
         qc: {
-            tag: 'Flash Deal',
-            title: 'Cancún — Ditch the Cold, Hit the Beach',
-            desc: "Okay real talk — Québec winters are brutal. Cancún is the perfect reset: turquoise water, fresh tacos on the beach, and sunsets that hit different. Grab your crew and get out of the snow already."
+            tag: 'Offre Flash',
+            title: 'Cancún — Lâche le froid, viens dans le Sud',
+            desc: "Sérieux, l'hiver au Québec c'est tough. Cancún c'est le reset parfait : eau turquoise, tacos frais sur la plage pis des couchers de soleil qui frappent différemment. Grab ta gang pis sors de la neige."
         },
         to: {
             tag: 'Flash Sale',
@@ -622,9 +669,9 @@ const baseOffers = [
             desc: 'Discover world-class theatre, historic landmarks, and vibrant neighbourhoods. Direct flights from Canada make London an easy and exciting city break any time of year.'
         },
         qc: {
-            tag: 'Members Only',
-            title: 'London — Non-Stop Culture & Nightlife',
-            desc: "London is unreal — free museums, insane street food markets, rooftop bars, and live music everywhere. It is the kind of city where every neighbourhood has its own vibe. Your socials are about to go off."
+            tag: 'Membres seulement',
+            title: 'Londres — La ville qui ne dort jamais (pour vrai)',
+            desc: "Londres c'est malade — des musées gratuits, du street food de fou, des rooftop bars pis de la musique live partout. Chaque quartier a sa propre vibe. Ton Insta va exploser, garanti."
         },
         to: {
             tag: 'Members Only',
@@ -643,9 +690,9 @@ const baseOffers = [
             desc: 'From the stunning Road to Hana to the golden beaches of Wailea, Maui offers a perfect blend of adventure and relaxation. Book now before these limited-time fares are gone.'
         },
         qc: {
-            tag: 'Limited Time',
-            title: 'Maui — Literally Paradise on Earth',
-            desc: "Picture this: you wake up to ocean waves, snorkel with sea turtles before lunch, and end the day with a poké bowl at sunset. Maui is that dream vacation you keep scrolling past — except now you can actually afford it."
+            tag: 'Temps limité',
+            title: 'Maui — Le paradis, pour vrai de vrai',
+            desc: "Imagine : tu te réveilles avec le son des vagues, tu fais du snorkeling avec des tortues avant le lunch, pis tu finis ta journée avec un poké bowl au coucher du soleil. Maui c'est le rêve — pis là le prix est insane."
         },
         to: {
             tag: 'Limited Time',
@@ -664,9 +711,9 @@ const baseOffers = [
             desc: "World-class skiing, breathtaking hikes, and natural hot springs surrounded by towering peaks. Banff is Canada's premier mountain destination — and these bundled rates are hard to beat."
         },
         qc: {
-            tag: 'New Drop',
-            title: 'Banff — The Rockies Are Next Level',
-            desc: "You think Laurentians skiing is good? Wait till you see the Rockies. Banff is like a screensaver but in real life — epic ski runs, hot springs after a long day, and mountain views that are honestly unfair. The price? Ridiculously good."
+            tag: 'Nouveau',
+            title: 'Banff — Les Rocheuses, c\'est un autre level',
+            desc: "Tu penses que le ski dans les Laurentides c'est bon? Attends de voir les Rocheuses. Banff c'est comme un fond d'écran mais en vrai — des pistes de ski épiques, des hot springs après une grosse journée, pis des vues de montagne complètement folles. Le prix? Ridicule."
         },
         to: {
             tag: 'New',
@@ -685,9 +732,9 @@ const baseOffers = [
             desc: 'From the Eiffel Tower to charming sidewalk cafés, Paris is a destination that never goes out of style. Non-stop flights and premium cabin upgrades available on select routes.'
         },
         qc: {
-            tag: 'Fan Favourite',
-            title: 'Paris — You Already Speak the Language',
-            desc: "Being from Québec means Paris is basically your second home — no awkward phrasebook needed. Croissants, terrasses, the Seine at night... Direct flights from Montréal make it almost too easy. What are you waiting for?"
+            tag: 'Populaire',
+            title: 'Paris — T\'es déjà chez toi là-bas',
+            desc: "Come on, on parle français — Paris c'est comme notre deuxième maison. Les croissants, les terrasses, la Seine le soir... Vol direct de Montréal, c'est presque trop facile. Qu'est-ce que t'attends?"
         },
         to: {
             tag: 'Popular',
@@ -706,9 +753,9 @@ const baseOffers = [
             desc: 'Explore lush rainforests, active volcanoes, and pristine Pacific beaches. Costa Rica offers unforgettable adventure travel packages with something for every explorer.'
         },
         qc: {
-            tag: 'Adventure',
-            title: 'Costa Rica — Wild Nature, Zero Regrets',
-            desc: "Tropical rainforests, active volcanoes, zip-lining through the canopy — Costa Rica is for anyone who wants more than just a beach trip. Plus the wildlife is insane, you will literally see toucans in the wild. Pura vida, for real."
+            tag: 'Aventure',
+            title: 'Costa Rica — La nature à son max, zéro regret',
+            desc: "Forêts tropicales, volcans actifs, zip-line au-dessus de la canopée — Costa Rica c'est pour ceux qui veulent plus qu'un trip de plage. Pis la faune est incroyable, tu vas voir des toucans pour vrai. Pura vida!"
         },
         to: {
             tag: 'Adventure',
@@ -721,29 +768,31 @@ const baseOffers = [
 /* ═══════ NAV ═══════ */
 function updateNav() {
     var el = document.getElementById('navAuth');
+    var bell = '<button class="bell" aria-label="Notifications"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg><span class="bdg">7</span></button>';
     if (user) {
         var p = profiles[user];
-        el.innerHTML = '<div class="nav-user-pill" onclick="go(\'offers\')"><span class="nav-avatar">' + p.initials + '</span><span class="nav-user-name">' + p.name + '</span></div>';
+        el.innerHTML = '<div class="h-user" onclick="go(\'offers\')"><span class="h-avatar">' + p.initials + '</span><span class="h-uname">' + p.name + '</span></div>' + bell;
     } else {
-        el.innerHTML = '<button class="nav-cta" onclick="go(\'signin\')">Sign In</button>';
+        el.innerHTML = '<button class="signin" onclick="go(\'signin\')">Sign in</button><button class="create" onclick="go(\'signin\')">Create Account</button>' + bell;
     }
 }
 
 /* ═══════ NAVIGATION ═══════ */
 function go(page) {
-    document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+    document.querySelectorAll('.pg').forEach(function(p){ p.classList.remove('on'); });
     var el = document.getElementById('pg-' + page);
-    if (el) el.classList.add('active');
+    if (el) el.classList.add('on');
     curPage = page;
     window.scrollTo({ top: 0, behavior: 'smooth' });
     updateNav();
 
     if (page === 'offers') renderOffers('all');
+    if (page === 'home' && user) updateHomeBanner();
 }
 
 function swTab(el) {
-    el.parentElement.querySelectorAll('.sw-tab').forEach(function(t){ t.classList.remove('active'); });
-    el.classList.add('active');
+    el.parentElement.querySelectorAll('.sw-t').forEach(function(t){ t.classList.remove('on'); });
+    el.classList.add('on');
 }
 
 function doSearch() {
@@ -774,7 +823,69 @@ function doLogin() {
     }
 
     user = matched;
-    setTimeout(function(){ go('offers'); }, 400);
+    setTimeout(function(){
+        go('home');
+        updateHomeBanner();
+    }, 400);
+}
+
+/* ═══════ OFFERS RENDERING ═══════ */
+/* ═══════ HOME BANNER PERSONALIZATION ═══════ */
+function updateHomeBanner() {
+    var banner = document.getElementById('homeBanner');
+    if (!banner) return;
+
+    if (user === 'qc') {
+        var originalPrice = 149;
+        var newPrice = Math.round(originalPrice * 0.9);
+        var savings = originalPrice - newPrice;
+
+        banner.className = 'promo-hero personalized bg-banff';
+        banner.style.cssText = '';
+        banner.innerHTML =
+            '<h2>Bienvenue Marie-Ève! Tu cherchais Calgary?</h2>' +
+            '<p>On a vu que tu as regardé des offres pour <strong style="color:#00D4C8">Banff, Alberta</strong> la dernière fois. Bonne nouvelle — le prix a baissé de 10% depuis ta dernière visite!</p>' +
+            '<div class="price-compare">' +
+                '<span class="old-price">$' + originalPrice + '</span>' +
+                '<span class="new-price">$' + newPrice + '</span>' +
+                '<span class="save-tag">SAVE $' + savings + ' (10% OFF)</span>' +
+            '</div>' +
+            '<button class="btn-promo-hero" onclick="goToPersonalOffer()">Voir l\'offre Calgary \u2192</button>';
+
+    } else if (user === 'to') {
+        var originalPrice2 = 279;
+        var newPrice2 = Math.round(originalPrice2 * 0.9);
+        var savings2 = originalPrice2 - newPrice2;
+
+        banner.className = 'promo-hero personalized bg-cancun';
+        banner.style.background = 'linear-gradient(135deg,#0C2030 0%,#1A3F70 50%,#0A4B5C 100%)';
+        banner.innerHTML =
+            '<h2>Welcome back, Margaret</h2>' +
+            '<p>We noticed you were looking at holidays to <strong style="color:#00D4C8">Canc\u00fan, Mexico</strong> recently. Splendid news \u2014 the fare has dropped by 10% since your last visit.</p>' +
+            '<div class="price-compare">' +
+                '<span class="old-price">$' + originalPrice2 + '</span>' +
+                '<span class="new-price">$' + newPrice2 + '</span>' +
+                '<span class="save-tag">SAVE $' + savings2 + ' (10% OFF)</span>' +
+            '</div>' +
+            '<button class="btn-promo-hero" onclick="goToPersonalOffer()">View Canc\u00fan Offer \u2192</button>';
+    }
+}
+
+function goToPersonalOffer() {
+    go('offers');
+    setTimeout(function() {
+        var searchTerm = (user === 'qc') ? 'Banff' : 'Canc';
+        var cards = document.querySelectorAll('.oc');
+        for (var i = 0; i < cards.length; i++) {
+            var titleEl = cards[i].querySelector('.oc-title');
+            if (titleEl && titleEl.textContent.indexOf(searchTerm) !== -1) {
+                cards[i].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                cards[i].style.boxShadow = '0 0 0 3px #00AAA6, 0 12px 40px rgba(0,170,166,.2)';
+                cards[i].style.transform = 'translateY(-4px)';
+                break;
+            }
+        }
+    }, 300);
 }
 
 /* ═══════ OFFERS RENDERING ═══════ */
@@ -784,8 +895,8 @@ function renderOffers(filter) {
     // Hero text
     if (key === 'qc') {
         var p = profiles.qc;
-        document.getElementById('offersTitle').textContent = 'Hey ' + p.name + ', These Deals Are For You';
-        document.getElementById('offersSub').innerHTML = 'We picked the best getaways based on what people in <strong>Qu\u00e9bec</strong> are loving right now. Direct flights, great prices \u2014 let\u2019s make it happen.';
+        document.getElementById('offersTitle').textContent = 'Hey ' + p.name + ', ces offres sont pour toi';
+        document.getElementById('offersSub').innerHTML = 'On a sélectionné les meilleurs deals basés sur ce que le monde au <strong>Québec</strong> aime en ce moment. Vols directs, bons prix — on y va!';
     } else if (key === 'to') {
         var p2 = profiles.to;
         document.getElementById('offersTitle').textContent = 'Your Exclusive Offers, ' + p2.name;
@@ -795,17 +906,24 @@ function renderOffers(filter) {
         document.getElementById('offersSub').innerHTML = 'Great fares to popular destinations across the globe. <strong>Sign in</strong> for personalized deals tailored just for you.';
     }
 
-    // Filter pills — all English now
+    // Filter pills
     var fb = document.getElementById('filterBar');
-    fb.innerHTML = '<button class="pill on" onclick="doFilter(this,\'all\')">All Offers</button>' +
-        '<button class="pill" onclick="doFilter(this,\'sun\')">Sun & Beach</button>' +
-        '<button class="pill" onclick="doFilter(this,\'city\')">City Breaks</button>' +
-        '<button class="pill" onclick="doFilter(this,\'adventure\')">Adventure</button>';
+    if (key === 'qc') {
+        fb.innerHTML = '<button class="pill on" onclick="doFilter(this,\'all\')">Toutes les offres</button>' +
+            '<button class="pill" onclick="doFilter(this,\'sun\')">Soleil & Plage</button>' +
+            '<button class="pill" onclick="doFilter(this,\'city\')">Escapades urbaines</button>' +
+            '<button class="pill" onclick="doFilter(this,\'adventure\')">Aventure</button>';
+    } else {
+        fb.innerHTML = '<button class="pill on" onclick="doFilter(this,\'all\')">All Offers</button>' +
+            '<button class="pill" onclick="doFilter(this,\'sun\')">Sun & Beach</button>' +
+            '<button class="pill" onclick="doFilter(this,\'city\')">City Breaks</button>' +
+            '<button class="pill" onclick="doFilter(this,\'adventure\')">Adventure</button>';
+    }
 
     // Promo strip
     var ps = document.getElementById('promoStrip');
     if (key === 'qc') {
-        ps.innerHTML = '<div><h3>Double Points This Week Only</h3><p>As a WestJet Rewards member, every booking you make this week earns you 2x the points. Do not sleep on this one.</p></div><button class="btn-promo">Learn More</button>';
+        ps.innerHTML = '<div><h3>2x les points cette semaine!</h3><p>En tant que membre WestJet Rewards, tes réservations te rapportent le double de points cette semaine seulement.</p></div><button class="btn-promo">En savoir plus</button>';
     } else if (key === 'to') {
         ps.innerHTML = '<div><h3>Double Points This Week</h3><p>As a valued WestJet Rewards member, earn twice the points on all bookings made this week.</p></div><button class="btn-promo">Learn More</button>';
     } else {
@@ -815,23 +933,74 @@ function renderOffers(filter) {
     populateGrid(filter, key);
 }
 
+/* Category priority per persona (lower = shown first) */
+var catPriority = {
+    qc:  { adventure: 1, city: 2, sun: 3 },
+    to:  { sun: 1, city: 2, adventure: 3 },
+    gen: { sun: 1, city: 2, adventure: 3 }
+};
+
 function populateGrid(filter, key) {
     var grid = document.getElementById('offersGrid');
-    var items = filter === 'all' ? baseOffers : baseOffers.filter(function(o){ return o.cat === filter; });
+    var items = filter === 'all' ? baseOffers.slice() : baseOffers.filter(function(o){ return o.cat === filter; });
+
+    /* Sort by persona preference when showing all offers */
+    if (filter === 'all') {
+        var prio = catPriority[key] || catPriority.gen;
+        items.sort(function(a, b) {
+            return (prio[a.cat] || 99) - (prio[b.cat] || 99);
+        });
+    }
+
+    var isQC = (key === 'qc');
+    var btnText = isQC ? "Voir l'offre" : 'View Deal';
+    var fromText = isQC ? '\u00e0 partir de' : 'from';
+    var perText = isQC ? 'personne' : 'person';
+
+    /* Discount rules: QC gets 10% off Banff (id:4), TO gets 10% off Cancún (id:1) */
+    var discountId = null;
+    if (key === 'qc') discountId = 4;
+    else if (key === 'to') discountId = 1;
 
     grid.innerHTML = items.map(function(o) {
         var d = o[key];
-        return '<div class="ocard">' +
-            '<div class="ocard-img" style="background-image:url(\'' + o.img + '\')">' +
-            '<span class="ocard-tag">' + d.tag + '</span></div>' +
-            '<div class="ocard-body"><div>' +
-            '<div class="ocard-title">' + d.title + '</div>' +
-            '<div class="ocard-desc">' + d.desc + '</div></div>' +
-            '<div class="ocard-foot"><div class="ocard-price">' +
-            '<div class="sm">from</div>' +
-            '<div class="big">$' + o.price + '</div>' +
-            '<div class="sm">CAD / person</div></div>' +
-            '<button class="btn-deal">View Deal</button></div></div></div>';
+        var hasDiscount = (discountId && o.id === discountId);
+        var displayPrice = hasDiscount ? Math.round(o.price * 0.9) : o.price;
+
+        var priceHtml;
+        if (hasDiscount) {
+            var tagStyle = 'background:#00AAA6';
+            var discountTag = isQC ? '10% OFF — POUR TOI' : '10% OFF — FOR YOU';
+            priceHtml =
+                '<div class="oc-pr">' +
+                    '<div class="s">' + fromText + '</div>' +
+                    '<div class="b" style="display:flex;align-items:baseline;gap:8px">' +
+                        '<span style="font-size:16px;text-decoration:line-through;color:#8899A4;font-weight:500">$' + o.price + '</span>' +
+                        '<span>$' + displayPrice + '</span>' +
+                    '</div>' +
+                    '<div class="s">CAD / ' + perText + '</div>' +
+                '</div>';
+            return '<div class="oc" style="box-shadow:0 0 0 2px #00AAA6,0 8px 30px rgba(0,170,166,.12)">' +
+                '<div class="oc-img" style="background-image:url(\'' + o.img + '\')">' +
+                '<span class="oc-tag" style="' + tagStyle + '">' + discountTag + '</span></div>' +
+                '<div class="oc-body"><div>' +
+                '<div class="oc-title">' + d.title + '</div>' +
+                '<div class="oc-desc">' + d.desc + '</div></div>' +
+                '<div class="oc-foot">' + priceHtml +
+                '<button class="btn-sm" style="background:#00AAA6">' + btnText + '</button></div></div></div>';
+        }
+
+        return '<div class="oc">' +
+            '<div class="oc-img" style="background-image:url(\'' + o.img + '\')">' +
+            '<span class="oc-tag">' + d.tag + '</span></div>' +
+            '<div class="oc-body"><div>' +
+            '<div class="oc-title">' + d.title + '</div>' +
+            '<div class="oc-desc">' + d.desc + '</div></div>' +
+            '<div class="oc-foot"><div class="oc-pr">' +
+            '<div class="s">' + fromText + '</div>' +
+            '<div class="b">$' + o.price + '</div>' +
+            '<div class="s">CAD / ' + perText + '</div></div>' +
+            '<button class="btn-sm">' + btnText + '</button></div></div></div>';
     }).join('');
 }
 
